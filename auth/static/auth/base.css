@@ -1,0 +1,18 @@
+button {
+    width: 100%;
+}
+
+label{
+    float: left !important;
+}
+
+.errorlist {
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.errorlist > li {
+    display: block;
+}
+
