@@ -5,6 +5,6 @@ urlpatterns = []
 
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/delete', views.delete_account),
+    # path('accounts/delete', views.delete_account),
     # path('registration/', views.registrationCustomer, name = 'registrationCustomer'),
 ]
