@@ -2,12 +2,13 @@ from django import forms
 from django.contrib.auth.models import User, Group  
 from django.contrib.auth.forms import UserCreationForm  
 from django.core.exceptions import ValidationError  
+from .models.auth import StudentAccounts, Clubs
 
 class CustomerCreationForm(UserCreationForm):  
     USER_TYPES = (
         ("student", "student"),
-        ("cinema_manager", "Cinema Manager"),
-        ("account_manager", "Account Manager"),
+        # ("cinema_manager", "Cinema Manager"),
+        # ("account_manager", "Account Manager"),
         ("club", "Club"),
         ("customer", "Customer")
     )
@@ -45,4 +46,11 @@ class CustomerCreationForm(UserCreationForm):
         )  
         # The group is added to the user
         user.groups.add(customer_group)
+        if(selected_group == "student"):
+            # Create a new student account and associate it with the user
+            student = StudentAccounts.objects.create(user=user)
+            student.save()
+        elif(selected_group == "clubs"):
+            club = Clubs.objects.create(club=user)
+            club.save()
         return user  
