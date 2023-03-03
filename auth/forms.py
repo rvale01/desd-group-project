@@ -14,7 +14,7 @@ class CustomerCreationForm(UserCreationForm):
     username = forms.CharField(label='username', min_length=5, max_length=150)  
     password1 = forms.CharField(label='password', widget=forms.PasswordInput)  
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput) 
-    group = forms.CharField(max_length=20, choices=USER_TYPES)
+    group = forms.Select(choices=USER_TYPES)
   
     # Checks if the username is already in the db, if it is, the form returns an error
     def username_clean(self):  
