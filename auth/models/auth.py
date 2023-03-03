@@ -5,10 +5,11 @@ from django.contrib.auth.models import User
 # Based on the type, the other appropriate table should be checked
 class AllUsers(models.Model):
     USER_TYPES = (
-        ('student', 'student'),
-        ('cinema_manager', 'Cinema Manager'),
-        ('account_manager', 'Account Manager'),
-        ('club', 'Club'),
+        ("student", "student"),
+        ("cinema_manager", "Cinema Manager"),
+        ("account_manager", "Account Manager"),
+        ("club", "Club"),
+        ("customer", "Customer")
     )
     type = models.CharField(max_length=20, choices=USER_TYPES)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
