@@ -57,3 +57,10 @@ header {
 header > div {
     cursor: pointer;
 }
+
+a {
+    text-decoration: underline;
+}
+a:hover {
+    cursor: pointer;
+}
