@@ -15,7 +15,7 @@ class CustomerCreationForm(UserCreationForm):
     username = forms.CharField(label='username', min_length=5, max_length=150)  
     password1 = forms.CharField(label='password', widget=forms.PasswordInput)  
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput) 
-    group = forms.Select(choices=USER_TYPES)
+    group = forms.ChoiceField(label='User Type', choices=USER_TYPES)
   
     # Checks if the username is already in the db, if it is, the form returns an error
     def username_clean(self):  
@@ -38,7 +38,7 @@ class CustomerCreationForm(UserCreationForm):
     def save(self):  
         selected_group = self.cleaned_data['group'].lower()
         # Getting the group of type customer
-        customer_group = Group.objects.get(name=selected_group) 
+        customer_group, created = Group.objects.get_or_create(name=selected_group)
         # The user is created by using the username and password
         user = User.objects.create_user( 
             username= self.cleaned_data['username'],  

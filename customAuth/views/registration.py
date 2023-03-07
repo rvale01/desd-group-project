@@ -17,6 +17,6 @@ def registrationCustomer(request):
             return redirect('/accounts/login')
         
     # when the request.method is of type GET, the form is created and passed to the template
-    return render(request, 'auth/registration.html', {
+    return render(request, 'registration/registration.html', {
         'form':form  
     })  
