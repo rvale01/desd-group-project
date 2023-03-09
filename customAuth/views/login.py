@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from datetime import datetime
 
 def customLogin(request):
     if request.method == 'POST':
@@ -12,6 +12,7 @@ def customLogin(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+                request.session['last_activity'] = datetime.now()
                 # FIXME: fix this by using the right redirect
                 # if user.groups.filter(name='student').exists():
                 #     return redirect('student_dashboard')
