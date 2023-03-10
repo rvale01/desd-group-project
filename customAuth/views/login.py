@@ -26,4 +26,4 @@ def customLogin(request):
             else:
                 return render(request, 'registration/login.html', {'error_message': 'Invalid login credentials'})
     form = AuthenticationForm()
-    return render(request=request, template_name="auth/login.html", context={"login_form":form})
+    return render(request=request, template_name="registration/login.html", context={"login_form":form})

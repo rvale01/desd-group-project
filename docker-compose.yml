@@ -1,8 +1,8 @@
 services:
-  app_customer:
+  group_14:
     build: .
     entrypoint: ["./django-app-entrypoint.sh"]
-    container_name: app_customer
+    container_name: group_14
     ports:
       - "8000:8000"
     restart: unless-stopped
@@ -19,9 +19,8 @@ services:
       - "5432:5432"
     restart: unless-stopped
     environment:
+      POSTGRES_DB: group-14-db
       POSTGRES_PASSWORD: postgres
-    volumes: 
-      - .:/docker-entrypoint-initdb.d
 
 volumes:
   db:
