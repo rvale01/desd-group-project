@@ -27,7 +27,9 @@
       {{form.password}}
   
       <button type="submit" value="login">Submit</button>
+      <a href="/auth/registration/customer">Don't have an account? Click here!</a>
       <input type="hidden" name="next" value="{{ next }}">
       </form>
+
     {% endif %}
   {% endblock %}

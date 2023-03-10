@@ -26,8 +26,13 @@
     {{ form.password2.label_tag }}
     {{ form.password2 }}
     {{form.errors.password2}}
+
+    {{ form.group.label_tag }}
+    {{ form.group }}
+    {{form.errors.group}}
     
     <button type="submit" value="login">Submit</button>
+    <a href="/auth/accounts/login/">Already have an account? Click here!</a>
     <input type="hidden" name="next" value="{{ next }}">
     </form>
   {% endif %}
