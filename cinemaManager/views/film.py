@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from ..forms import FilmForm
-from ...group_14.models.general import Film 
+from group_14.models.general import Film 
 
 def addFilmForm(request):
     if request.method == "GET":
