@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Films</h1>
+  <ul>
+    {% for film in object_list %}
+      <li>{{ film.title }} - {{ film.rlease_year}} - {{ film.genre }}- {{ film.description }}</li>
+    {% empty %}
+      <li>No films found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
