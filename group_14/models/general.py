@@ -1,16 +1,17 @@
 from django.db import models
+from django.core.validators import MaxValueValidator
 
 # TODO: MOVE THESE ONES IF NEEDED
+class Screen(models.Model):
+    screen_id = models.IntegerField(primary_key=True)
+    no_seats = models.IntegerField(validators=[MaxValueValidator(300)])
+
 class Film(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     age_rating = models.CharField(max_length=100)
     film_id = models.AutoField(primary_key=True)
     duration = models.IntegerField()
-
-class Screen(models.Model):
-    screen_id = models.AutoField(primary_key=True)
-    no_seats = models.IntegerField(max = 300)
 
 class Showing(models.Model):
     showing_id = models.AutoField(primary_key=True)
