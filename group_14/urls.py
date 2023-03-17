@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include("customAuth.urls")),
     path('', homepage),
-    # path('customer/', include("customer.urls")),
+    path('cinema-manager/', include("cinemaManager.urls")),
 ]

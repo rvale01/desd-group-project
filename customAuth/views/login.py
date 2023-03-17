@@ -9,7 +9,9 @@ def customLogin(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            print("user and pass", username, password)
             user = authenticate(username=username, password=password)
+
             if user is not None:
                 login(request, user)
                 request.session['last_activity'] = datetime.now()
