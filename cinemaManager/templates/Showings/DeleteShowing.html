@@ -1,0 +1,17 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <form method="post">
+        <h1>Delete Showing</h1>
+        {% csrf_token %}
+            <label for="showing_select">Select a showing to delete:</label>
+            <select name="showing_id" id="showing_select" class="form-control">
+                {% for showing in showings %}
+                    <option value="{{ showing.id }}">{{ showing.film.title }} - {{ showing.start_time }}</option>
+                {% empty %}
+                    <option disabled>No showings available.</option>
+                {% endfor %}
+            </select>
+        <button type="submit" class="btn btn-danger">Delete Showing</button>
+    </form>
+{% endblock %}

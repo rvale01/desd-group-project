@@ -12,11 +12,39 @@ def addShowing(request):
         form = ShowingForm(request.POST)
         if form.is_valid():            
             form.save()
-            return redirect('home')
-    return redirect('home')
+            return redirect('showingList')
+    return redirect('showingList')
 
-def delete_showing(request, showing_id):
-    if request.method == "POST":
-        showing = Showing.objects.get(id = showing_id)
-        showing.delete()
-    return redirect('deleted_complete_view')
+def deleteShowing(request):
+    if request.method == 'POST':
+        showing_id = request.POST.get('showing_id')
+        if showing_id:
+            Showing.objects.filter(id=showing_id).delete()
+            return redirect('showingList')
+    showings = Showing.objects.all()
+    context = {'showings': showings}
+    return render(request, 'Showings/DeleteShowing.html', context)
+
+def showingList(request):
+    showings = Showing.objects.all()
+    context = {'showings': showings}
+    return render(request, 'Showings/ListShowings.html', context)
+
+
+def editShowing(request, showing_id):
+    showing = Showing.objects.get(id=showing_id)
+
+    if request.method == 'POST':
+        form = ShowingForm(request.POST, instance=showing)
+        if form.is_valid():
+            form.save()
+            return redirect('showingList')
+    else:
+        form = ShowingForm(instance=showing)
+
+    context = {'form': form, 'showing': showing}
+    return render(request, 'Showings/EditShowing.html', context)
+
+
+
+

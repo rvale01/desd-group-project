@@ -1,0 +1,15 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    {% if form.errors %}
+    <p>There was a problem in the form. Check it and try again.</p>
+    {% endif %}
+
+    <h1>Edit Showing: {{ showing.film.title }}</h1>
+    <form method="post">
+        <h2>Edit Showing:</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+{% endblock %}
