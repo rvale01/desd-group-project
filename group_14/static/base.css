@@ -12,10 +12,20 @@ body {
     margin: 0;
 }
 
-button {
+button, .btn {
     background-color: var(--primary-color);
     border-radius: var(--border-radius-sm);
     padding: var(--padding-sm) var(--padding-md);
+    text-align: center;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius-sm);
+    padding: 10px;
     text-align: center;
     border: none;
     color: white;
@@ -82,6 +92,10 @@ nav ul {
   /* Style the navigation links */
   nav ul li {
     display: inline-block;
+  }
+
+  ul {
+    margin-top: 50px;
   }
   
   nav ul li a {

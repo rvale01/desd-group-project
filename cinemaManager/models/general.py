@@ -6,8 +6,6 @@ class Film(models.Model):
     age_rating = models.CharField(max_length=100, default='Not Rated')
     film_id = models.AutoField(primary_key=True)
     duration = models.IntegerField()
-    def __str__(self):
-        return self.title
 
 
 class Screen(models.Model):
