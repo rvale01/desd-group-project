@@ -4,6 +4,7 @@
     --padding-md: 2rem;
     --border-color: #c2c8d0;
     --primary-color: #10a37f;
+    --primary-darker-color: #096a52;
 }
 
 body {
@@ -63,4 +64,39 @@ a {
 }
 a:hover {
     cursor: pointer;
+}
+
+/* Reset the default list styles */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style the navigation bar */
+  nav {
+    background-color: var(--primary-color);
+    overflow: hidden;
+  }
+  
+  /* Style the navigation links */
+  nav ul li {
+    display: inline-block;
+  }
+  
+  nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  /* Change the color of the navigation links on hover */
+  nav ul li a:hover {
+    background-color: var(--primary-darker-color);
+  }
+  
+main {
+    padding: 20px;
 }
