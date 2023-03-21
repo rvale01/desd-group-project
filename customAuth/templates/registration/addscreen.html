@@ -10,19 +10,22 @@
     
 
   
-      <form method="post" action="{% url 'addscreen' %}">
+      <form method="post" action="{% url 'addScreen' %}">
         <h1> Add Screen </h1>
       {% csrf_token %}
   
-      <!-- {{ form.screen_id.label_tag }} -->
+      {{ form.screen_id.label_tag }}
       {{form.screen_id}}
-  
-      <!-- {{ form.no_seats.label_tag }} -->
+      
+      <input type="number" name="screen_id" id="screen_id" placeholder="Enter Screen ID"/>
+
+      {{ form.no_seats.label_tag }}
       {{form.no_seats}}
+
+      <input type="number" name="no_seats" id="no_seats" placeholder="Enter number of seats"/>
   
       <button type="submit" value="addscreen"> add screen </button>
       </form>
 
-    {% endif %}
     {% endblock %}
 </html>

@@ -17,6 +17,7 @@ def addScreen(request):
         else:
             form = AddScreenForm()
             
+    form = AddScreenForm()       
     return render(request=request, template_name="registration/addscreen.html", context={"addScreen_form":form})
         
         

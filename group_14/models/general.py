@@ -3,10 +3,14 @@ from django.core.validators import MaxValueValidator
 
 # TODO: MOVE THESE ONES IF NEEDED
 class Screen(models.Model):
+    class Meta:
+        app_label = "Screen"
     screen_id = models.IntegerField(primary_key=True)
     no_seats = models.IntegerField(validators=[MaxValueValidator(300)])
 
 class Film(models.Model):
+    class Meta:
+        app_label = "Film"
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     age_rating = models.CharField(max_length=100)
@@ -14,6 +18,8 @@ class Film(models.Model):
     duration = models.IntegerField()
 
 class Showing(models.Model):
+    class Meta:
+        app_label = "Showing"
     showing_id = models.AutoField(primary_key=True)
     time = models.TimeField()
     date = models.DateField()
@@ -23,6 +29,8 @@ class Showing(models.Model):
     screen = models.ForeignKey(Screen, to_field='screen_id', on_delete=models.CASCADE)
 
 class Booking(models.Model):
+    class Meta:
+        app_label = "Booking"
     booking_id = models.AutoField(primary_key=True)
     customer = models.CharField(max_length=200)
     # Foreign key of type Showing
