@@ -1,7 +1,7 @@
 from django.urls import path
 from django.urls import path, include
 from .views.film import addFilm, addFilmForm
-from .views.showing import addShowingForm
+from .views.showing import addShowingForm, addShowing
 urlpatterns = []
 
 urlpatterns += [
@@ -10,5 +10,6 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    # path('add-showing-form/', addShowingForm, name = 'addShowingForm'),
+    path('add-showing-form/', addShowingForm, name = 'addShowingForm'),
+    path('add-new-showing/', addShowing, name = 'addShowing'),
 ]
