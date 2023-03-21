@@ -8,7 +8,8 @@ echo "Waiting for Postgres Database Service to start..."
 
 echo "Finished waiting"
 
-python manage.py makemigrations
+python manage.py makemigrations customAuth
+python manage.py makemigrations cinemaManager
 python manage.py migrate
 
 # Explanation for why we should run on 0.0.0.0 instead of 127.0.0.1 as default

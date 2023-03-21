@@ -1,0 +1,17 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <form method="post">
+        <h1>Delete Film</h1>
+        {% csrf_token %}
+            <label for="film_select">Select a film to delete:</label>
+            <select name="film_id" id="film_select" class="form-control">
+                {% for film in films %}
+                    <option value="{{ film.film_id }}">{{ film.title }}</option>
+                {% empty %}
+                    <option disabled>No films available.</option>
+                {% endfor %}
+            </select>
+        <button type="submit" class="btn btn-danger">Delete Film</button>
+    </form>
+{% endblock %}

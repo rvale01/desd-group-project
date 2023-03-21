@@ -1,33 +1,47 @@
-# from django.shortcuts import render, redirect
-# from ..forms import FilmForm
-# from group_14.models.general import Film 
+from django.shortcuts import render, redirect
+from ..forms.FilmForm import FilmForm
+from ..models.general import Film 
 
-# def addFilmForm(request):
-#     if request.method == "GET":
-#         return render(request, 'AddFilm.html')
+def addFilmForm(request):
+    form = FilmForm()
+    if request.method == "GET":
+        return render(request, 'Films/AddFilm.html', {'form': form})   
 
-# def addFilm(request):
-#     if request.method == "POST":
-#         form = FilmForm(request.POST)
-#         if form.is_valid():
-#             # Get form data
-#             title = form.cleaned_data.get('title')
-#             description = form.cleaned_data.get('description')
-#             age_rating = form.cleaned_data.get('age_rating')
-#             duration = form.cleaned_data.get('duration')
-            
-#             # Create new Film object
-#             film = Film(title=title, description=description, age_rating=age_rating, duration=duration)
-            
-#             # Save the new Film object to the database
-#             film.save()
-            
-#             # Redirect to homepage
-#             return redirect('home')
-#     return redirect('home')
+def addFilm(request):
+    if request.method == "POST":
+        form = FilmForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to homepage
+            return redirect('filmList')
+    return redirect('filmList')
 
-# def delete_film(request, film_id):
-#     if request.method == "POST":
-#         film = Film.objects.get(id = film_id)
-#         film.delete()
-#     return redirect('deleted_complete_view')
+def deleteFilm(request):
+    if request.method == 'POST':
+        film_id = request.POST.get('film_id')
+        if film_id:
+            Film.objects.filter(film_id=film_id).delete()
+            return redirect('filmList')
+    films = Film.objects.all()
+    context = {'films': films}
+    return render(request, 'Films/DeleteFilm.html', context)   
+
+def filmList(request):
+    films = Film.objects.all()
+    context = {'films': films}
+    return render(request, 'Films/ListFilms.html', context)
+
+
+def editFilm(request, film_id):
+    film = Film.objects.get(film_id=film_id)
+    
+    if request.method == 'POST':
+        form = FilmForm(request.POST, instance=film)
+        if form.is_valid():
+            form.save()
+            return redirect('filmList')
+    else:
+        form = FilmForm(instance=film)
+    
+    context = {'form': form, 'film': film}
+    return render(request, 'Films/EditFilm.html', context)

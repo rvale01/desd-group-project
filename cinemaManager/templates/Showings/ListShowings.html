@@ -1,0 +1,20 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <h1>Showings</h1>
+
+    <a href="{% url 'addShowingForm' %}" class="btn">Add Showing</a>
+    <a href="{% url 'deleteShowing' %}" class="btn">Delete Showing</a>
+    
+    <ul>
+        {% for showing in showings %}
+        <li>
+            {{ showing.film.title }} - {{ showing.start_time }}
+            <!-- Add edit button for each showing -->
+            <a href="{% url 'editShowing' showing_id=showing.id %}" class="edit-btn">Edit</a>
+        </li>
+        {% empty %}
+            <li>No showings available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

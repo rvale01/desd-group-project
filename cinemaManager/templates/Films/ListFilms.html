@@ -1,0 +1,20 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <h1>Films</h1>
+
+    <a href="{% url 'addFilmForm' %}" class="btn">Add Film</a>
+    <a href="{% url 'deleteFilm' %}" class="btn">Delete Film</a>
+    
+    <ul>
+        {% for film in films %}
+        <li>
+            {{ film.title }}
+            <!-- Add edit button for each film -->
+            <a href="{% url 'editFilm' film_id=film.film_id %}" class="edit-btn">Edit</a>
+        </li>
+        {% empty %}
+            <li>No films available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
