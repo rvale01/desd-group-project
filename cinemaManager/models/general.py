@@ -1,16 +1,18 @@
 from django.db import models
 
-# TODO: MOVE THESE ONES IF NEEDED
 class Film(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=500)
-    age_rating = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, default="")
+    description = models.TextField(default="")
+    age_rating = models.CharField(max_length=100, default='Not Rated')
     film_id = models.AutoField(primary_key=True)
     duration = models.IntegerField()
+    def __str__(self):
+        return self.title
+
 
 class Screen(models.Model):
     screen_id = models.AutoField(primary_key=True)
-    no_seats = models.IntegerField(max = 300)
+    # no_seats = models.IntegerField(max = 300)
 
 class Showing(models.Model):
     showing_id = models.AutoField(primary_key=True)
@@ -23,7 +25,7 @@ class Showing(models.Model):
 
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
-    customer = models.CharField(max_length=200)
+    # customer = models.CharField(max_length=200)
     # Foreign key of type Showing
     showing = models.ForeignKey(Showing, to_field='showing_id', on_delete=models.CASCADE)
     is_paid = models.BooleanField()

@@ -58,7 +58,10 @@ ROOT_URLCONF = 'group_14.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'group_14/templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'group_14/templates'),
+            os.path.join(BASE_DIR, 'cinemaManager/templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

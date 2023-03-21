@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect
-from ..forms.FilmForm import FilmForm
-from django.http import HttpResponse
-from ..models.general import Film 
+from ..forms import ShowingForm
+from ..models.general import Showing 
 
-def addFilmForm(request):
-    form = FilmForm()
+def addShowingForm(request):
+    form = ShowingForm()
     if request.method == "GET":
-        return render(request, 'Films/AddFilm.html', {'form': form})   
+        return render(request, 'Showings/AddShowing.html', {form:form})
+    return redirect('home')
 
-def addFilm(request):
+def addShowing(request):
     if request.method == "POST":
-        form = FilmForm(request.POST)
+        form = ShowingForm(request.POST)
         if form.is_valid():
             # Get form data
             title = form.cleaned_data.get('title')
@@ -28,8 +28,7 @@ def addFilm(request):
             return redirect('home')
     return redirect('home')
 
-def delete_film(request, film_id):
-    if request.method == "POST":
-        film = Film.objects.get(id = film_id)
-        film.delete()
-    return redirect('deleted_complete_view')
+
+def addFilmForm(request):
+    if request.method == "GET":
+        return render(request, 'AddFilm.html')

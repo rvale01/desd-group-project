@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/registration.css' %}"/>
+  </head>
+    {% if form.errors %}
+    <p>There was a problem in the form. Check it and try again.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'addFilm' %}">
+        <h2>Add a new Film:</h2>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Save</button>
+    </form>
+</html>
