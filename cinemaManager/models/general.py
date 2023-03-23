@@ -11,6 +11,7 @@ class Film(models.Model):
 
 class Screen(models.Model):
     screen_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, default='')
     no_seats = models.IntegerField(validators=[MaxValueValidator(300)], default=0)
 
 

@@ -9,9 +9,9 @@
     <ul>
         {% for screen in screens %}
         <li>
-            {{ screen.screen_id }}
+            {{ screen.name }}
             <!-- Add edit button for each film -->
-            <a href="{% url 'editScreen' screen_id=screen.screen_id %}" class="edit-btn">Edit</a>
+            <a class="edit-btn">Edit</a>
         </li>
         {% empty %}
             <li>No screens available.</li>

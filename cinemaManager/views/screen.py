@@ -18,5 +18,5 @@ def addScreen(request):
 
 def screenList(request):
     screens = Screen.objects.all()
-    context = {'screen': screens}
+    context = {'screens': screens}
     return render(request, 'Screens/ListScreens.html', context)
