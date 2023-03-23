@@ -61,7 +61,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'group_14/templates'),
-            os.path.join(BASE_DIR, 'cinemaManager/templates')
+            os.path.join(BASE_DIR, 'cinemaManager/templates'),
+            os.path.join(BASE_DIR, 'customer/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {

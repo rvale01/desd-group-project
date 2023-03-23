@@ -1,7 +1,7 @@
 # views.py
 from django.shortcuts import render
 from ..forms.DateSelection import DateSelectionForm
-from ..models import Showing
+from cinemaManager.models.general import Showing
 
 def showings_by_date(request):
     showings = []
@@ -14,4 +14,9 @@ def showings_by_date(request):
             showings = Showing.objects.filter(date=selected_date)
 
     context = {'form': form, 'showings': showings}
-    return render(request, 'showings/showings_by_date.html', context)
+    return render(request, 'customer/DateSelection.html', context)
+
+def showing_details(request, showing_id):
+    showing = Showing.objects.get(id=showing_id)
+    context = {'showing': showing}
+    return render(request, 'customer/showing_details.html', context)
