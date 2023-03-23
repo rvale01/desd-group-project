@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator
 
 class Film(models.Model):
     title = models.CharField(max_length=100, default="")
@@ -9,17 +10,21 @@ class Film(models.Model):
 
 
 class Screen(models.Model):
-    screen_id = models.AutoField(primary_key=True)
-    # no_seats = models.IntegerField(max = 300)
+    class Meta:
+        app_label = "Screen"
+    screen_id = models.IntegerField(primary_key=True)
+    no_seats = models.IntegerField(validators=[MaxValueValidator(300)])
+
 
 class Showing(models.Model):
+    
     showing_id = models.AutoField(primary_key=True)
     time = models.TimeField()
     date = models.DateField()
     available_seats = models.IntegerField()
     # Foreign key of type film
     film = models.ForeignKey(Film, to_field='film_id', on_delete=models.CASCADE)
-    screen = models.ForeignKey(Screen, to_field='screen_id', on_delete=models.CASCADE)
+    # screen = models.ForeignKey(Screen, to_field='screen_id', on_delete=models.CASCADE)
 
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)

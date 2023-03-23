@@ -1,0 +1,20 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <h1>All Availiable Screens:</h1>
+
+    <a href="{% url 'addScreenForm' %}" class="btn">Add Screen</a>
+   
+    
+    <ul>
+        {% for screen in screens %}
+        <li>
+            {{ screen.screen_id }}
+            <!-- Add edit button for each film -->
+            <a href="{% url 'editScreen' screen_id=screen.screen_id %}" class="edit-btn">Edit</a>
+        </li>
+        {% empty %}
+            <li>No screens available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
