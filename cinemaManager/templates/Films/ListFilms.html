@@ -6,15 +6,17 @@
     <a href="{% url 'addFilmForm' %}" class="btn">Add Film</a>
     <a href="{% url 'deleteFilm' %}" class="btn">Delete Film</a>
     
-    <ul>
+    <div class="item-container">
         {% for film in films %}
-        <li>
-            {{ film.title }}
-            <!-- Add edit button for each film -->
-            <a href="{% url 'editFilm' film_id=film.film_id %}" class="edit-btn">Edit</a>
-        </li>
+        <div class="item-card">
+            <h2>{{ film.title }}</h2>
+            <p class="age-rating">Age rating: {{ film.age_rating }}</p>
+            <p class="duration">Duration: {{ film.duration }} mins</p>
+            <p>Description: {{ film.description }}</p>
+            <a href="{% url 'editFilm' film_id=film.film_id %}" class="btn btn-primary">Edit</a>
+          </div>
         {% empty %}
-            <li>No films available.</li>
+            <p>No films available.</p>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
