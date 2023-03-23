@@ -36,4 +36,4 @@ def ticket_confirmation(request, showing_id):
     else:
         form = TicketPurchaseForm()
     context = {'form': form, 'showing': showing, 'num_tickets': num_tickets, 'total_cost': total_cost}
-    return render(request, 'CinemaManager/ticket_confirmation.html', context)
+    return render(request, 'customer/NoAvailability.html', context)
