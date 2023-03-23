@@ -12,7 +12,7 @@ class CustomerCreationForm(UserCreationForm):
         ("club", "Club"),
         ("customer", "Customer")
     )
-    username = forms.CharField(label='username', min_length=5, max_length=150)  
+    username = forms.CharField(label='username/Club Number', min_length=5, max_length=150)  
     password1 = forms.CharField(label='password', widget=forms.PasswordInput)  
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput) 
     group = forms.ChoiceField(label='User Type', choices=USER_TYPES)

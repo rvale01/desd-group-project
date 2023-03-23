@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from cinemaManager.models.general import Showing
 from ..forms.Tickets import TicketPurchaseForm
 
-CUSTOMER_TICKET_PRICE = 10
+STUDENT_TICKET_PRICE = 10
+
 def purchase_tickets(request, showing_id):
     showing = Showing.objects.get(id=showing_id)
     if request.method == 'POST':
@@ -26,7 +27,7 @@ def ticket_confirmation(request, showing_id):
     num_tickets = request.session.get('num_tickets')
     if num_tickets is None:
         return redirect('select_tickets', showing_id=showing_id)
-    total_cost = num_tickets * CUSTOMER_TICKET_PRICE
+    total_cost = num_tickets * STUDENT_TICKET_PRICE
     available_seats = showing.available_seats
     if available_seats < num_tickets:
         return render(request, 'customer/NoAvailability.html')
