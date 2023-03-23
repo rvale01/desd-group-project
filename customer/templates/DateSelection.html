@@ -1,0 +1,23 @@
+<!-- showings/showings_by_date.html -->
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <h1>Showings by Date</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Search</button>
+    </form>
+
+    {% if showings %}
+        <h2>Available Showings:</h2>
+        <ul>
+            {% for showing in showings %}
+                <li>{{ showing.film.title }} - {{ showing.time }} - Screen {{ showing.screen.name }}</li>
+            {% empty %}
+                <li>No showings available for the selected date.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
