@@ -10,10 +10,8 @@ class Film(models.Model):
 
 
 class Screen(models.Model):
-    class Meta:
-        app_label = "Screen"
-    screen_id = models.IntegerField(primary_key=True)
-    no_seats = models.IntegerField(validators=[MaxValueValidator(300)])
+    screen_id = models.AutoField(primary_key=True)
+    no_seats = models.IntegerField(validators=[MaxValueValidator(300)], default=0)
 
 
 class Showing(models.Model):
