@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from ..forms.ShowingForm import ShowingForm
 from ..models.general import Showing 
-import datetime
+from datetime import datetime, timedelta
 
 def addShowingForm(request):
     form = ShowingForm()
@@ -32,6 +32,7 @@ def addShowing(request):
             
             if(screen.no_seats >= available_seats):
                 showing.save()
+                return redirect('showingList')
             else:
                 form.add_error('available_seats', 'Not enough seats available.')
                 return render(request, 'Showings/AddShowing.html', {'form':form})
@@ -62,8 +63,28 @@ def editShowing(request, showing_id):
     if request.method == 'POST':
         form = ShowingForm(request.POST, instance=showing)
         if form.is_valid():
-            form.save()
-            return redirect('showingList')
+            screen = showing.screen
+            available_seats = form.cleaned_data['available_seats']
+
+            date = showing.date
+            start_time = showing.time
+            end_time = (datetime.combine(date, start_time) + timedelta(minutes=showing.film.duration)).time()
+            conflicting_showings = Showing.objects.filter(
+                screen=screen, 
+                date=date, 
+                time__range=(start_time, end_time)
+            ).exclude(showing_id=showing.showing_id)
+
+            if conflicting_showings.exists():
+                form.add_error(None, 'There is already a showing at this screen at the same date and time.')
+                return render(request, 'Showings/EditShowing.html', {'form':form})
+            
+            if(screen.no_seats >= available_seats):
+                showing.save()
+                return redirect('showingList')
+            else:
+                form.add_error('available_seats', 'Not enough seats available.')
+                return render(request, 'Showings/EditShowing.html', {'form':form})
     else:
         form = ShowingForm(instance=showing)
 
