@@ -16,6 +16,20 @@ def addScreen(request):
             return redirect('screenList')
     return redirect('screenList')    
 
+def editScreen(request, screen_id):
+    screen = Screen.objects.get(screen_id=screen_id)
+    
+    if request.method == 'POST':
+        form = ScreenForm(request.POST, instance=screen)
+        if form.is_valid():
+            form.save()
+            return redirect('screenList')
+    else:
+        form = ScreenForm(instance=screen)
+
+    context = {'form': form, 'screen': screen}
+    return render(request, 'Screens/EditScreen.html', context)
+
 def screenList(request):
     screens = Screen.objects.all()
     context = {'screens': screens}
