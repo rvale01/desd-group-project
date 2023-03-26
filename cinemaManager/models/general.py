@@ -22,7 +22,7 @@ class Showing(models.Model):
     available_seats = models.IntegerField()
     # Foreign key of type film
     film = models.ForeignKey(Film, to_field='film_id', on_delete=models.CASCADE)
-    screen = models.ForeignKey(Screen, to_field='screen_id', on_delete=models.CASCADE)
+    screen = models.ForeignKey(Screen, to_field='screen_id', on_delete=models.CASCADE, default=1)
 
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
