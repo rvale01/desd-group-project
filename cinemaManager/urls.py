@@ -1,7 +1,7 @@
 from django.urls import path
 from django.urls import path, include
 from .views.film import addFilm, addFilmForm, filmList, deleteFilm, editFilm
-from .views.screen import addScreenForm, addScreen, screenList, editScreen
+from .views.screen import addScreenForm, addScreen, screenList, editScreen, deleteScreen
 from .views.showing import addShowingForm, addShowing, showingList, deleteShowing, editShowing
 from .views.general import homepage
 
@@ -28,7 +28,7 @@ urlpatterns += [
     path('add-new-screen/', addScreen, name = 'addScreen'),
     path('screens/', screenList, name='screenList'),
     path('screens/editScreen/<int:screen_id>/', editScreen, name='editScreen'),
-    
+    path('screens/delete/', deleteScreen, name='deleteScreen'),
 ]
 
 urlpatterns += [
