@@ -1,4 +1,5 @@
 from django import forms
 
 class TicketPurchaseForm(forms.Form):
-    quantity = forms.IntegerField(min_value=1, label="Number of Tickets")
+    adults_tickets = forms.IntegerField(min_value=1, label="Adults")
+    children_tickets = forms.IntegerField(min_value=0, label="Children")

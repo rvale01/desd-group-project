@@ -1,11 +1,10 @@
 {% extends "general/base.html" %}
 
 {% block content %}
-  <h1>Select Number of Tickets</h1>
   <form method="post">
+    <h1>Select Number of Tickets</h1>
     {% csrf_token %}
-    <label for="num_tickets">Number of tickets:</label>
-    <input type="number" name="num_tickets" id="num_tickets" required>
-    <input type="submit" value="Purchase Tickets">
+    {{ form }}
+    <button>Purchase Tickets</button>
   </form>
 {% endblock %}

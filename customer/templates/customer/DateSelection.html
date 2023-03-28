@@ -2,9 +2,9 @@
 {% extends "general/base.html" %}
 
 {% block content %}
-    <h1>Showings by Date</h1>
     
     <form method="post">
+        <h1>Showings by Date</h1>
         {% csrf_token %}
         {{ form }}
         <button type="submit" class="btn">Search</button>

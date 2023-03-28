@@ -17,6 +17,6 @@ def showings_by_date(request):
     return render(request, 'customer/DateSelection.html', context)
 
 def showing_details(request, showing_id):
-    showing = Showing.objects.get(id=showing_id)
+    showing = Showing.objects.get(showing_id=showing_id)
     context = {'showing': showing}
-    return render(request, 'customer/showing_details.html', context)
+    return render(request, 'customer/ShowingDetails.html', context)
