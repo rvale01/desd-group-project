@@ -7,7 +7,7 @@
             <label for="screen_select">Select a screen to delete:</label>
             <select name="screen_id" id="screen_select" class="form-control">
                 {% for screen in screens %}
-                    <option value="{{ screen.screen_id }}">{{ screen.screen_id }}</option>
+                    <option value="{{ screen.screen_id }}">{{ screen.name }}</option>
                 {% empty %}
                     <option disabled>No screens available.</option>
                 {% endfor %}

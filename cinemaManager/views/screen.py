@@ -14,6 +14,8 @@ def addScreen(request):
             form.save()
             # Redirect to homepage
             return redirect('screenList')
+        else:
+            return render(request, 'Screens/AddScreen.html', {'form': form})  
     return redirect('screenList')    
 
 def editScreen(request, screen_id):

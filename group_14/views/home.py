@@ -7,3 +7,6 @@ def homepage(request):
     else:
         # FIXME: redirect to other pages
         return None
+
+def login_temp(request):
+    return redirect('homepage')

@@ -7,7 +7,7 @@
             <label for="showing_select">Select a showing to delete:</label>
             <select name="showing_id" id="showing_select" class="form-control">
                 {% for showing in showings %}
-                    <option value="{{ showing.showing_id }}">{{ showing.film.title }} - {{ showing.start_time }}</option>
+                    <option value="{{ showing.showing_id }}">{{ showing.film.title }} - {{ showing.time }} on {{ showing.date }}</option>
                 {% empty %}
                     <option disabled>No showings available.</option>
                 {% endfor %}
