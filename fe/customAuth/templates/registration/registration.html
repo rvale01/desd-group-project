@@ -1,0 +1,36 @@
+{% extends "general/base.html" %}
+
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <button onclick="window.location.href=window.location.origin+'/accounts/logout/'">
+            Logout
+        </button>
+    {% else %}
+        <form method="post">
+            <h1>Register</h1>
+            {% csrf_token %}
+
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.errors.username }}
+
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            {{ form.errors.password1 }}
+
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            {{ form.errors.password2 }}
+
+            {{ form.group.label_tag }}
+            {{ form.group }}
+            {{ form.errors.group }}
+
+            <button type="submit" value="login">Submit</button>
+            <a href="/auth/accounts/login/">Already have an account? Click here!</a>
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+    {% endif %}
+{% endblock %}
