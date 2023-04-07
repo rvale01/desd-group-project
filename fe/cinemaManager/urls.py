@@ -4,6 +4,7 @@ from .views.film import addFilm, addFilmForm, filmList, deleteFilm, editFilm
 from .views.screen import addScreenForm, addScreen, screenList, editScreen, deleteScreen
 from .views.showing import addShowingForm, addShowing, showingList, deleteShowing, editShowing
 from .views.general import homepage
+from .views.clubs import clubs_list, add_club, delete_club, update_club
 
 urlpatterns = []
 
@@ -32,5 +33,13 @@ urlpatterns += [
 ]
 
 urlpatterns += [
+    path('clubs/', clubs_list, name = 'clubs_list'),
+    path('clubs/add-new', add_club, name = 'add_club'),
+    path('clubs/edit/<int:club_id>', update_club, name = 'update_club'),
+    path('clubs/delete/<int:club_id>', delete_club, name = 'delete_club'),
+]
+
+urlpatterns += [
     path('', homepage, name = 'homepage'),
 ]
+
