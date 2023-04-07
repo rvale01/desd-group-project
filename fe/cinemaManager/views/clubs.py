@@ -43,17 +43,18 @@ def add_club(request):
 
 
 def update_club(request, club_id):
-    club_instance = Clubs.objects.get(club_id=club_id)
+    club = Clubs.objects.get(id=club_id)
+
     if request.method == 'POST':
-        form = ClubCreationForm(request.POST, instance=club_instance)
+        form = ClubCreationForm(request.POST, instance=club)
         if form.is_valid():
             form.save()
             return redirect('clubs_list')
     else:
-        form = ClubCreationForm(instance=club_instance)
+        form = ClubCreationForm(instance=club)
 
     context = {'form': form}
-    return render(request, 'CinemaManager/update_club.html', context)
+    return render(request, 'CLubsDetails/UpdateClubDetails.html', context)
 
 def delete_club(request, club_id):
     club_instance = Clubs.objects.get(id=club_id)

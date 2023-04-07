@@ -4,7 +4,7 @@
     <h1>Update Club</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form }}
         <button type="submit">Update Club</button>
     </form>
     <a href="{% url 'clubs_list' %}">Back to Clubs List</a>
