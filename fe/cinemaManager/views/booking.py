@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from ..models.general import Showing, Booking
-from ..forms.BookingForm import BookingForm
+
 
 def create_booking(request, showing_id):
     if request.method == 'POST':
@@ -13,7 +13,7 @@ def create_booking(request, showing_id):
         # Check if there are enough available seats
         total_tickets = student_tickets + adult_tickets + club_tickets
         if total_tickets > showing.available_seats:
-            return HttpResponse("Not enough available seats for this booking.")
+           return (f"Sorry, there are only {showing.available_seats} seats available for this showing. Please reduce the number of tickets and try again.")
 
         # Calculate the total price for the booking (you can adjust the ticket prices as needed)
         total_price = student_tickets * 10 + adult_tickets * 15 + club_tickets * 12
