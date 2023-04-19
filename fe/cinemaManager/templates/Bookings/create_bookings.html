@@ -1,0 +1,17 @@
+{% extends "CinemaManager/base.html" %}
+{% block content %}
+    <h1>Create Booking for Showing ID {{ showing_id }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="students_tickets">Student tickets:</label>
+        <input type="number" name="students_tickets" id="students_tickets" min="0" value="0">
+        <br>
+        <label for="adults_tickets">Adult tickets:</label>
+        <input type="number" name="adults_tickets" id="adults_tickets" min="0" value="0">
+        <br>
+        <label for="clubs_tickets">Club tickets:</label>
+        <input type="number" name="clubs_tickets" id="clubs_tickets" min="0" value="0">
+        <br>
+        <button type="submit">Book Tickets</button>
+    </form>
+{% endblock %}

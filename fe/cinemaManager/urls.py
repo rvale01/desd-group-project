@@ -5,7 +5,7 @@ from .views.screen import addScreenForm, addScreen, screenList, editScreen, dele
 from .views.showing import addShowingForm, addShowing, showingList, deleteShowing, editShowing
 from .views.general import homepage
 from .views.clubs import clubs_list, add_club, delete_club, update_club
-
+from .views.booking import create_booking,booking_success, list_showings_booking
 urlpatterns = []
 
 urlpatterns += [
@@ -43,3 +43,10 @@ urlpatterns += [
     path('', homepage, name = 'homepage'),
 ]
 
+urlpatterns = [
+    # ...
+    path('booking/create_booking/<int:showing_id>/', create_booking, name='create_booking'),
+    path('booking/booking_success/', booking_success, name='booking_success'),
+    path('booking/list_showings_booking/', list_showings_booking , name='list_showings'),
+
+]   

@@ -1,0 +1,6 @@
+{% extends "CinemaManager/base.html" %}
+{% block content %}
+    <h1>Booking Successful!</h1>
+    <p>Your booking has been successfully created. Please check your email for booking details.</p>
+    <a href="{% url 'list_showings_bookings' %}">Back to Showings</a>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <h1>Showings</h1>
+
+    <div class="item-container">
+        {% for showing in showings %}
+        <div class="item-card">
+            <div class="item-content">
+                <h3>{{ showing.film.title }}</h3>
+                <p>Time: {{ showing.time }}</p>
+                <p>Date: {{ showing.date }}</p>
+                <p>Available Seats: {{ showing.available_seats }}</p>
+                <p>Screen: {{ showing.screen.name }}</p>
+            </div>
+            <div class="item-actions">
+                <a href="{% url 'create_bookings' showing_id=showing.showing_id %}" class="btn book-btn">Book</a>
+            </div>
+        </div>
+        {% empty %}
+            <p>No showings available.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

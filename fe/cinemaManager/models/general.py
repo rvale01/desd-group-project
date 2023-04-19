@@ -35,3 +35,6 @@ class Booking(models.Model):
     clubs_tickets = models.IntegerField()
     # reserved_seats = models. //TODO: has to be a list
     total = models.IntegerField()
+    social_distancing = models.BooleanField(default=False)
+
+
