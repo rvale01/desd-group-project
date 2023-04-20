@@ -1,11 +1,12 @@
 from django.urls import path
 from django.urls import path, include
-from .views.film import addFilm, addFilmForm, filmList, deleteFilm, editFilm
-from .views.screen import addScreenForm, addScreen, screenList, editScreen, deleteScreen
-from .views.showing import addShowingForm, addShowing, showingList, deleteShowing, editShowing
-from .views.general import homepage
-from .views.clubs import clubs_list, add_club, delete_club, update_club
-from .views.booking import create_booking,booking_success, list_showings_booking
+from cinemaManager.views.film import addFilm, addFilmForm, filmList, deleteFilm, editFilm
+
+from cinemaManager.views.screen import addScreenForm, addScreen, screenList, editScreen, deleteScreen
+from cinemaManager.views.showing import addShowingForm, addShowing, showingList, deleteShowing, editShowing
+from cinemaManager.views.general import homepage
+from cinemaManager.views.clubs import clubs_list, add_club, delete_club, update_club
+from cinemaManager.views.booking import create_booking,booking_success, list_showings_booking
 urlpatterns = []
 
 urlpatterns += [
