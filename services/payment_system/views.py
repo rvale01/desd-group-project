@@ -4,12 +4,14 @@ from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import TicketSerializer
-stripe.api_key = settings.STRIPE_SECRET_KEY
+
+stripe.api_key = "sk_test_51ML6GvA5JuwZl2aDVTNJ2ITAXhbXiGWTJTKbvQVs0eDqnMOn9GTjOB46QGUgR3Ad2kZ664yHFI1OCG0sAneQZyln00n8Zu12I7"
 
 @api_view(["POST"])
-def create_checkout_session(request):
+def create_default_checkout_session(request):
     serializer = TicketSerializer(data=request.data)
 
+    # TODO: 
     if serializer.is_valid():
         adults_tickets = serializer.validated_data["adults_tickets"]
         children_tickets = serializer.validated_data["children_tickets"]
@@ -19,7 +21,7 @@ def create_checkout_session(request):
             line_items=[
                 {
                     "price_data": {
-                        "currency": "usd",
+                        "currency": "gbp",
                         "unit_amount": 1000,
                         "product_data": {
                             "name": "Adult Ticket",
@@ -29,7 +31,7 @@ def create_checkout_session(request):
                 },
                 {
                     "price_data": {
-                        "currency": "usd",
+                        "currency": "gbp",
                         "unit_amount": 500,
                         "product_data": {
                             "name": "Children Ticket",
@@ -39,8 +41,9 @@ def create_checkout_session(request):
                 },
             ],
             mode="payment",
-            success_url="https://example.com/success",
-            cancel_url="https://example.com/canceled",
+            success_url="http://example.com/success",
+            cancel_url="http://example.com/canceled",
         )
 
     return Response({"url": session.url})
+

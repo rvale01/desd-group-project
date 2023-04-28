@@ -8,18 +8,19 @@ services:
     restart: unless-stopped
     volumes:
       - ./fe:/app
+    depends_on:
+      - postgres-db
   
-  web_services:
-    build: ./web_services
-    command: python manage.py runserver 0.0.0.0:8001
-    container_name: web_services
+  services:
+    build: ./services
+    # command: python manage.py runserver 0.0.0.0:8001
+    container_name: services
+    entrypoint: ["./django-app-entrypoint-services.sh"]
     restart: unless-stopped
     volumes:
       - ./web_services:/app2
     ports:
       - "8001:8001"
-    depends_on:
-      - postgres-db
 
 
   postgres-db:
