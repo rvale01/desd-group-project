@@ -143,3 +143,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_COOKIE_NAME = 'my_session_cookie_name'
 SESSION_COOKIE_AGE = 20 * 60  # 20 minutes in seconds
+
+LOGOUT_REDIRECT_URL = '/'

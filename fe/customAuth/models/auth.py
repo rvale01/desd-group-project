@@ -9,7 +9,7 @@ class StudentAccounts(models.Model):
     city =  models.CharField(max_length=100)
     mobile_phone = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
-    discount = models.IntegerField()
+    discount = models.IntegerField(default=0)
 
 # This table includes all the clubs accounts and their details
 class Clubs(models.Model):

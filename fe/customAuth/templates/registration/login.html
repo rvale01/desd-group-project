@@ -8,9 +8,9 @@
     {% endif %}
 
     {% if user.is_authenticated %}
-        <button onclick="window.location.href=window.location.origin+'/accounts/logout/'">
+        <a class= btn href="/auth/accounts/logout">
             Logout
-        </button>
+        </a>
     {% else %}
         <form method="post" action="{% url 'login' %}">
             <h1>Login</h1>

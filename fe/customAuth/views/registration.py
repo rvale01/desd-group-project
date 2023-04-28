@@ -14,7 +14,7 @@ def registrationCustomer(request):
         # to the homepage
         if form.is_valid():  
             form.save()  
-            return redirect('/accounts/login')
+            return redirect('auth/accounts/login')
         
     # when the request.method is of type GET, the form is created and passed to the template
     return render(request, 'registration/registration.html', {
