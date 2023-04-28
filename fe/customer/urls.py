@@ -10,5 +10,5 @@ urlpatterns = [
 
 urlpatterns += [
     path('select_tickets/<int:showing_id>/', select_tickets, name='select_tickets'),
-    path('ticket_confirmation/<int:showing_id>/', ticket_confirmation, name='ticket_confirmation'),
+    path('ticket_confirmation/', ticket_confirmation, name='ticket_confirmation'),
 ]

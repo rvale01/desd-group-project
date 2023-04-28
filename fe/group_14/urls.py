@@ -9,5 +9,6 @@ urlpatterns = [
     path('', homepage, name="general-home"),
     path('cinema-manager/', include("cinemaManager.urls"), name="cinema_manager"),
     path('customer/', include("customer.urls")),
+    path('club/', include("customer.urls")),
     path('accounts/profile/', login_temp)
 ]
