@@ -1,7 +1,7 @@
 
-
+from django.shortcuts import render
 from cinemaManager.models.general import Booking, Showing
-from django.shortcuts import redirect
+
 
 
 def handle_successful_payment(request, showing_id, adults_tickets, children_tickets, total_cost, response):
@@ -22,7 +22,4 @@ def handle_successful_payment(request, showing_id, adults_tickets, children_tick
         total=total_cost
     )
     booking.save()
-
-    # Redirect the user to the payment page
-    url = response.json()["url"]
-    return redirect(url)
+    return render(request, 'customer/SuccessPage.html')

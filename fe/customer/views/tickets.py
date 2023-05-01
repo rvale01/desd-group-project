@@ -55,9 +55,15 @@ def ticket_confirmation(request):
         )
 
         if response.status_code == 200:
-            return handle_successful_payment(request, showing_id, adults_tickets, children_tickets, total_cost, response)
+            url = response.json()["url"]
+            return redirect(url)
+
         else:
             messages.error(request, "Payment failed. Please try again.")
 
     context = {'showing': showing, 'adults_tickets': adults_tickets, 'children_tickets': children_tickets, 'total_cost': total_cost}
     return render(request, 'customer/TicketConfirmation.html', context)
+
+
+
+    
