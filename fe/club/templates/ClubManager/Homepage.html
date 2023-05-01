@@ -1,0 +1,19 @@
+{% extends "ClubManager/base.html" %}
+{% block content %}
+    <h3>Welcome!</h3>
+
+    <p>This is the homepage for the club manager!</p>
+    <br/>
+
+    <p>Outstanding balance: {{balance}}</p>
+
+    <a class= btn href="/auth/accounts/logout">
+        Add credit to account
+    </a>
+    <a class= btn href="/auth/accounts/logout">
+        Logout
+    </a>
+    <a class= btn href="showings-by-date/">
+        Book
+    </a>
+{% endblock %}

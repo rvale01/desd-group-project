@@ -11,7 +11,6 @@ stripe.api_key = "sk_test_51ML6GvA5JuwZl2aDVTNJ2ITAXhbXiGWTJTKbvQVs0eDqnMOn9GTjO
 def create_default_checkout_session(request):
     serializer = TicketSerializer(data=request.data)
 
-    # TODO: 
     if serializer.is_valid():
         adults_tickets = serializer.validated_data["adults_tickets"]
         children_tickets = serializer.validated_data["children_tickets"]
@@ -24,7 +23,7 @@ def create_default_checkout_session(request):
                         "currency": "gbp",
                         "unit_amount": 1000,
                         "product_data": {
-                            "name": "Adult Ticket",
+                            "name": "Adult Tickets",
                         },
                     },
                     "quantity": adults_tickets,
@@ -34,7 +33,7 @@ def create_default_checkout_session(request):
                         "currency": "gbp",
                         "unit_amount": 500,
                         "product_data": {
-                            "name": "Children Ticket",
+                            "name": "Children Tickets",
                         },
                     },
                     "quantity": children_tickets,

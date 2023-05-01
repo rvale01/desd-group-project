@@ -10,18 +10,12 @@
 <body>
     <nav>
         <ul>
-            <li><a href="{% url 'homepage' %}">Home</a></li>
-            <li><a href="{% url 'filmList' %}">Films</a></li>
-            <li><a href="{% url 'showingList' %}">Showings</a></li>
-            <li><a href="{% url 'screenList' %}">Screens</a></li>
-            <li><a href="{% url 'clubs_list' %}">Clubs</a></li>
+            <li><a href="{% url 'club_homepage' %}">Home</a></li>
         </ul>
     </nav>
     
     <main>
         {% block content %}{% endblock %}
     </main>
-
-    {% block extra_bottom_js %}{% endblock %}
 </body>
 </html>

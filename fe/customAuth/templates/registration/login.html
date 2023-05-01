@@ -3,16 +3,13 @@
 {% load static %}
 
 {% block content %}
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
 
     {% if user.is_authenticated %}
         <a class= btn href="/auth/accounts/logout">
             Logout
         </a>
     {% else %}
-        <form method="post" action="{% url 'login' %}">
+        <form method="post" action="{% url 'customLogin' %}">
             <h1>Login</h1>
             {% csrf_token %}
 
@@ -22,9 +19,13 @@
             {{ form.password.label_tag }}
             {{ form.password }}
 
-            <button type="submit" value="login">Submit</button>
+            <button type="submit">Submit</button>
             <a href="/auth/registration/customer">Don't have an account? Click here!</a>
             <input type="hidden" name="next" value="{{ next }}">
+
+            {% if error_message %}
+                <p>{{ error_message }}</p>
+            {% endif %}
         </form>
     {% endif %}
 {% endblock %}
