@@ -9,26 +9,26 @@ def customLogin(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            print("user and pass", username, password)
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
 
             if user is not None:
                 request.session['last_activity'] = datetime.now()
-                # FIXME: fix this by using the right redirect
-                if user.groups.filter(name='cinema_manager').exists():
-                    login(request, user)
-                    return redirect('cinema-manager')
-                # if user.groups.filter(name='student').exists():
-                #     return redirect('student_dashboard')
-                # elif user.groups.filter(name='club').exists():
-                #     return redirect('club_dashboard')
-                # elif user.groups.filter(name='customer').exists():
-                #     return redirect('customer_dashboard')
-                # else:
-                #     return redirect('home')
-                return redirect('home')
+                login(request, user)
+                return redirect('userRedirect')
             else:
-                return render(request, 'registration/login.html', {'error_message': 'Invalid login credentials'})
+                return render(request, 'registration/login.html', context={'error_message': 'Invalid username or password'})
+        else:
+            form = AuthenticationForm()
+            return render(request, 'registration/login.html', context={"form":form, 'error_message': 'Invalid username or password'})
     form = AuthenticationForm()
-    return render(request=request, template_name="registration/login.html", context={"login_form":form})
+    return render(request, "registration/login.html", context={"form":form})
     
+
+def userRedirect(request):
+    if request.user.is_authenticated:
+        if request.user.groups.filter(name='cinema_manager').exists():
+            return redirect('cinema_manager')
+        # if user.groups.filter(name='student').exists():
+        #     return redirect('student_dashboard')
+        elif request.user.groups.filter(name='club_manager').exists():
+            return redirect('/club/')

@@ -9,6 +9,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Club Id</th>
                     <th>Club Name</th>
                     <th>Representative</th>
                     <th>Street No</th>
@@ -24,6 +25,7 @@
             <tbody>
                 {% for club in clubs %}
                 <tr>
+                    <td>{{ club.club.username }}</td>
                     <td>{{ club.club_name }}</td>
                     <td>{{ club.rep_fname }} {{ club.rep_lname }}</td>
                     <td>{{ club.street_no }}</td>

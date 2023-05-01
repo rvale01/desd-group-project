@@ -9,7 +9,7 @@ class CustomerCreationForm(UserCreationForm):
         ("student", "student"),
         # ("cinema_manager", "Cinema Manager"),
         # ("account_manager", "Account Manager"),
-        ("club", "Club"),
+        ("club_manager", "Club"),
         ("customer", "Customer")
     )
     username = forms.CharField(label='username/Club Number', min_length=5, max_length=150)  
@@ -50,7 +50,7 @@ class CustomerCreationForm(UserCreationForm):
             # Create a new student account and associate it with the user
             student = StudentAccounts.objects.create(user=user)
             student.save()
-        elif(selected_group == "clubs"):
-            club = Clubs.objects.create(club=user)
+        elif(selected_group == "club_manager"):
+            club = Clubs(club=user)
             club.save()
         return user  

@@ -15,8 +15,8 @@ def select_tickets(request, showing_id):
             request.session['children_tickets'] = form.cleaned_data['children_tickets']
             request.session['showing_id'] = showing_id
             return redirect('ticket_confirmation')
-    else:
-        form = TicketPurchaseForm()
+
+    form = TicketPurchaseForm()
 
     context = {
         'showing': showing,
