@@ -1,0 +1,52 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <h1>Account List</h1>
+    <a href="{% url 'add_account' %}">
+        <button>Add a new Account</button>
+    </a>
+    {% if clubs %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Club Name</th>
+                    <th>Representative</th>
+                    <th>Street No</th>
+                    <th>City</th>
+                    <th>Mobile Phone</th>
+                    <th>Email</th>
+                    <th>Discount</th>
+                    <th>Balance</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for club in clubs %}
+                <tr>
+                    <td>{{ club.club_name }}</td>
+                    <td>{{ club.rep_fname }} {{ club.rep_lname }}</td>
+                    <td>{{ club.street_no }}</td>
+                    <td>{{ club.city }}</td>
+                    <td>{{ club.mobile_phone }}</td>
+                    <td>{{ club.email }}</td>
+                    <td>{{ club.discount }}%</td>
+                    <td>£{{ club.balance }}</td>
+                    <td>
+                        <a href="{% url 'update_account' club.id %}">
+                            <button>Update</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_account' club.id %}">
+                            <button>Delete</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No clubs found.</p>
+    {% endif %}
+{% endblock %}

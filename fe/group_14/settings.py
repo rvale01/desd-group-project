@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'customAuth',
     'cinemaManager',
-    'customer'
+    'customer',
+    'account_manager'
 ]
 
 MIDDLEWARE = [
