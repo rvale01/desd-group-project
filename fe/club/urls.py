@@ -9,8 +9,8 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('showings-by-date/', showings_by_date, name='showings_by_date'),
-    path('showing/<int:showing_id>/', showing_details, name='showing_details'),
+    path('showings-by-date/', showings_by_date, name='club_showings_by_date'),
+    path('showing/<int:showing_id>/', showing_details, name='club_showing_details'),
 ]
 
 urlpatterns += [

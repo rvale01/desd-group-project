@@ -40,7 +40,7 @@ def create_default_checkout_session(request):
                 },
             ],
             mode="payment",
-            success_url="http://example.com/success",
+            success_url="http://localhost:8000/customer/success",
             cancel_url="http://example.com/canceled",
         )
 
