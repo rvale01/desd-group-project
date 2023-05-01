@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from cinemaManager.models.general import Showing
 from ..forms.Tickets import TicketPurchaseForm
 import requests
+from cinemaManager.models.general import Showing, Booking
+from django.contrib import messages
 
 ADULTS_TICKET_PRICE = 10
 CHILDREN_TICKET_PRICE = 7
@@ -53,9 +55,28 @@ def ticket_confirmation(request):
 
         if response.status_code == 200:
             url = response.json()["url"]
+            
+            
+            showing.available_seats -= (adults_tickets + children_tickets)
+            showing.save()
+
+            
+            booking = Booking(
+                customer=request.user,
+                showing=showing,
+                is_paid=True,
+                students_tickets=0,
+                clubs_tickets=0,
+                adults_tickets=adults_tickets,
+                children_tickets=children_tickets,
+                total=total_cost
+            )
+            booking.save()
+
+            
             return redirect(url)
         else:
-            pass
+            messages.error(request, "Payment failed. Please try again.")
+
     context = {'showing': showing, 'adults_tickets': adults_tickets, 'children_tickets': children_tickets, 'total_cost': total_cost}
     return render(request, 'customer/TicketConfirmation.html', context)
-    
