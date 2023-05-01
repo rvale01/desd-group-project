@@ -46,3 +46,31 @@ def create_default_checkout_session(request):
 
     return Response({"url": session.url})
 
+@api_view(["POST"])
+def create_club_checkout_session(request):
+    serializer = TicketSerializer(data=request.data)
+
+    if serializer.is_valid():
+        amount = serializer.validated_data["amount"]
+        club_id = serializer.validated_data["club_id"]
+
+        session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "gbp",
+                        "unit_amount": int(amount),
+                        "product_data": {
+                            "name": "Payment for account n. " + club_id,
+                        },
+                    },
+                    "quantity": 1,
+                },
+            ],
+            mode="payment",
+            success_url="http://example.com/success",
+            cancel_url="http://example.com/canceled",
+        )
+
+    return Response({"url": session.url})

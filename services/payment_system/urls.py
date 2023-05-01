@@ -1,7 +1,9 @@
 from django.urls import path
 
-from .views import create_default_checkout_session
+from .views import create_default_checkout_session, create_club_checkout_session
 
 urlpatterns = [
     path('create-tickets-session/', create_default_checkout_session, name='create_default_checkout_session'),
+    path('add-credit-club/', create_club_checkout_session, name='create_club_checkout_session'),
+
 ]
