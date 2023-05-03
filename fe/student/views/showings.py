@@ -18,6 +18,7 @@ def showings_by_date(request):
 
     context = {'form': form, 'showings': showings}
     return render(request, 'student/DateSelection.html', context)
+
 @login_required
 def showing_details(request, showing_id):
     showing = Showing.objects.get(showing_id=showing_id)

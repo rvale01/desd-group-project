@@ -26,7 +26,7 @@ def handle_student_successful_payment(request):
     booking = Booking(
         customer=request.user,
         showing=showing,
-        is_paid=True,
+        is_paid=False,
         students_tickets=students_tickets,
         clubs_tickets=0,
         total=total_cost

@@ -56,19 +56,6 @@ def ticket_confirmation(request):
     if available_seats < student_tickets:
         return render(request, 'student/NoAvailability.html')
     if request.method == 'POST':
-        response = requests.post(
-            "http://services:8001/api/payment/create-tickets-session/",
-            json={
-                "student_tickets": student_tickets,
-            },
-        )
-
-        if response.status_code == 200:
-            url = response.json()["url"]
-            return redirect(url)
-
-        else:
-            messages.error(request, "Payment failed. Please try again.")
-
+        return redirect('handle_student_successful_payment')
     context = {'showing': showing, 'student_tickets': student_tickets, 'total_cost': total_cost}
     return render(request, 'student/TicketConfirmation.html', context)
