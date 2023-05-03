@@ -2,37 +2,33 @@
 from django.shortcuts import render
 from cinemaManager.models.general import Booking, Showing
 from django.contrib.auth.decorators import login_required
+from student.models import Student
 
-
-ADULTS_TICKET_PRICE = 10
-CHILDREN_TICKET_PRICE = 7
+STUDENT_TICKET_PRICE = 8
 @login_required
-def handle_successful_payment(request):
+def handle_student_successful_payment(request):
     showing_id = request.session.get('showing_id')
-    
-    adults_tickets = request.session.get('adults_tickets')
-    adults_tickets = int(adults_tickets) if adults_tickets is not None else 0
-    
-    children_tickets = request.session.get('children_tickets')
-    children_tickets = int(children_tickets) if children_tickets is not None else 0
+    students_tickets = request.session.get('students_tickets')
+    students_tickets = int(students_tickets) if students_tickets is not None else 0
 
-    total_cost = (adults_tickets) * (ADULTS_TICKET_PRICE)
-    total_cost += (children_tickets) * (CHILDREN_TICKET_PRICE)
+    total_cost = students_tickets * STUDENT_TICKET_PRICE
+
+    student = Student.objects.get(user=request.user)
+    student.credit -= total_cost
+    student.save()
 
     # Update the showing.available_seats
     showing = Showing.objects.get(showing_id=showing_id)
-    showing.available_seats -= (adults_tickets + children_tickets)
+    showing.available_seats -= students_tickets
     showing.save()
 
     # Create the booking
     booking = Booking(
-        student=request.user,
+        customer=request.user,
         showing=showing,
         is_paid=True,
-        students_tickets=0,
+        students_tickets=students_tickets,
         clubs_tickets=0,
-        adults_tickets=adults_tickets,
-        children_tickets=children_tickets,
         total=total_cost
     )
     booking.save()

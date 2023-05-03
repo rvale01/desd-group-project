@@ -2,7 +2,8 @@
 
 {% block content %}
   <form method="post">
-    <h1>Select Number of Tickets</h1>
+    <h1>Select Number of Student Tickets</h1>
+    <p>Current Credit Balance: £{{ student.credit }}</p>
     {% csrf_token %}
     {{ form }}
     <button>Purchase Tickets</button>
