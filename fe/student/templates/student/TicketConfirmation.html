@@ -1,0 +1,25 @@
+{% extends "general/base.html" %}
+
+{% block content %}
+  <h1>Review Booking</h1>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+  <form method="post" action="{% url 'ticket_confirmation' %}">
+    {% csrf_token %}
+    <p>Adults tickets: {{ adults_tickets }}</p>
+    <p>Children tickets: {{ children_tickets }}</p>
+    <p>Total cost: £{{ total_cost }}</p>
+    <!-- <input type="hidden" name="adults_tickets" value="{{ adults_tickets }}" />
+    <input type="hidden" name="children_tickets" value="{{ children_tickets }}" /> -->
+    <button type="submit"> Pay now </button>
+    <!-- <button onclick="window.history.back()">Go back</button> -->
+  </form>
+{% endblock %}
+
