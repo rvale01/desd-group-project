@@ -28,7 +28,7 @@ class Showing(models.Model):
 # for logged in users -> students, clubs
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     # Foreign key of type Showing
     showing = models.ForeignKey(Showing, to_field='showing_id', on_delete=models.CASCADE)
     is_paid = models.BooleanField()
@@ -45,5 +45,6 @@ class GuestBooking(models.Model):
     # Foreign key of type Showing
     showing = models.ForeignKey(Showing, to_field='showing_id', on_delete=models.CASCADE)
     adults_tickets = models.IntegerField()
+    children_tickets = models.IntegerField(default=0)
     reserved_seats = ArrayField(models.IntegerField(), blank=True, null=True)
     total = models.IntegerField()

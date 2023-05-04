@@ -16,6 +16,9 @@ def select_tickets(request, showing_id):
         if form.is_valid():
             request.session['adults_tickets'] = form.cleaned_data['adults_tickets']
             request.session['children_tickets'] = form.cleaned_data['children_tickets']
+            request.session['first_name'] = form.cleaned_data['first_name']
+            request.session['last_name'] = form.cleaned_data['last_name']
+            request.session['children_tickets']
             request.session['showing_id'] = showing_id
             return redirect('ticket_confirmation')
 

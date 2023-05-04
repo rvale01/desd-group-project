@@ -1,6 +1,6 @@
 
 from django.shortcuts import render
-from cinemaManager.models.general import Booking, Showing
+from cinemaManager.models.general import GuestBooking, Showing
 
 ADULTS_TICKET_PRICE = 10
 CHILDREN_TICKET_PRICE = 7
@@ -14,6 +14,9 @@ def handle_successful_payment(request):
     children_tickets = request.session.get('children_tickets')
     children_tickets = int(children_tickets) if children_tickets is not None else 0
 
+    first_name = request.session.get('first_name')
+    last_name = request.session.get('last_name')
+
     total_cost = (adults_tickets) * (ADULTS_TICKET_PRICE)
     total_cost += (children_tickets) * (CHILDREN_TICKET_PRICE)
 
@@ -23,15 +26,18 @@ def handle_successful_payment(request):
     showing.save()
 
     # Create the booking
-    booking = Booking(
-        customer=request.user,
+    booking = GuestBooking(
+        customer_name=first_name,
+        customer_lname=last_name,
         showing=showing,
-        is_paid=True,
-        students_tickets=0,
-        clubs_tickets=0,
         adults_tickets=adults_tickets,
         children_tickets=children_tickets,
         total=total_cost
     )
     booking.save()
-    return render(request, 'customer/SuccessPage.html')
+
+    context = {
+        'tickets_no': children_tickets + adults_tickets,
+        'showing': showing
+    }
+    return render(request, 'customer/SuccessPage.html', context=context)
