@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'customAuth',
     'cinemaManager',
     'customer'
+    'student'
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,8 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'group_14/templates'),
             os.path.join(BASE_DIR, 'cinemaManager/templates'),
             os.path.join(BASE_DIR, 'customer/templates'),
-            os.path.join(BASE_DIR, 'club/templates')
+            os.path.join(BASE_DIR, 'club/templates'),
+            os.path.join(BASE_DIR, 'student/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {

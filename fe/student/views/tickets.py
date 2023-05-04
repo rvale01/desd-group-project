@@ -42,7 +42,7 @@ def ticket_confirmation(request):
     showing_id = request.session.get('showing_id')
 
     showing = Showing.objects.get(showing_id=showing_id)
-    student_tickets = request.session.get('student_tickets')
+    student_tickets = request.session.get('students_tickets')
     student_tickets = int(student_tickets) if student_tickets is not None else 0
 
     total_cost = student_tickets * STUDENT_TICKET_PRICE
