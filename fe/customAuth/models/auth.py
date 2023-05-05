@@ -18,6 +18,7 @@ class Clubs(models.Model):
     club_name = models.CharField(max_length=100)
     rep_fname = models.CharField(max_length=100)
     rep_lname = models.CharField(max_length=100)
+    street = models.CharField(max_length=100, default="")
     street_no = models.CharField(max_length=100)
     city =  models.CharField(max_length=100)
     mobile_phone = models.CharField(max_length=100)
