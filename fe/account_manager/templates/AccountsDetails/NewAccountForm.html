@@ -1,0 +1,10 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <h1>Create a New Account</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Create</button>
+    </form>
+{% endblock %}

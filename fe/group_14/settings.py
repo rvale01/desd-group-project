@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'customAuth',
     'cinemaManager',
     'customer',
+    'account_manager',
     'student'
-
 ]
 
 MIDDLEWARE = [
