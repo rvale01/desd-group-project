@@ -1,0 +1,27 @@
+<!-- showings/showings_by_date.html -->
+{% extends "general/base.html" %}
+
+{% block content %}
+    
+    <form method="post">
+        <h1>Showings by Date</h1>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn">Search</button>
+    </form>
+
+    {% if showings %}
+        <h2>Available Showings:</h2>
+        <ul>
+            {% for showing in showings %}
+                <div class="showing-item">
+                    <a href="{% url 'student_showing_details' showing_id=showing.showing_id %}">
+                        {{ showing.film.title }} - {{ showing.time }} - Screen {{ showing.screen.name }}
+                    </a>
+                </div>
+            {% empty %}
+                <li>No showings available for the selected date.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

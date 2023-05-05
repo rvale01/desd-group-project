@@ -21,9 +21,8 @@ def customLogin(request):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                request.session['last_activity'] = datetime.now()
                 login(request, user)
-                return redirect(userRedirect)
+                return redirect('/redirect-user/')
             else:
                 return render(request, 'registration/login.html', context={'error_message': 'Invalid username or password'})
         else:

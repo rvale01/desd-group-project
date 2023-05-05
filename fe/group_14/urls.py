@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
-from .views.home import homepage, login_temp
+from .views.home import homepage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,5 +10,5 @@ urlpatterns = [
     path('cinema-manager/', include("cinemaManager.urls"), name="cinema_manager"),
     path('customer/', include("customer.urls")),
     path('club/', include("club.urls"), name="club"),
-    path('accounts/profile/', login_temp)
+    path('students/', include("student.urls"), name="student"),
 ]
