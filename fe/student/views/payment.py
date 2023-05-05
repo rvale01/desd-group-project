@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from cinemaManager.models.general import Booking, Showing
 from django.contrib.auth.decorators import login_required
-from student.models import Student
+from customAuth.models.auth import StudentAccounts
 
 STUDENT_TICKET_PRICE = 8
 @login_required
@@ -13,8 +13,8 @@ def handle_student_successful_payment(request):
 
     total_cost = students_tickets * STUDENT_TICKET_PRICE
 
-    student = Student.objects.get(user=request.user)
-    student.credit -= total_cost
+    student = StudentAccounts.objects.get(user=request.user)
+    student.balance -= total_cost
     student.save()
 
     # Update the showing.available_seats
