@@ -15,6 +15,7 @@
             <li><a href="{% url 'showingList' %}">Showings</a></li>
             <li><a href="{% url 'screenList' %}">Screens</a></li>
             <li><a href="{% url 'clubs_list' %}">Clubs</a></li>
+            <li><a href="{% url 'cinema_settings' %}">Cinema Settings</a></li>
         </ul>
     </nav>
     
@@ -22,7 +23,6 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Add your JavaScript dependencies here, such as jQuery or Bootstrap's JS -->
     {% block extra_bottom_js %}{% endblock %}
 </body>
 </html>

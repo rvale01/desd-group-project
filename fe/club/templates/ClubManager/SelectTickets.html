@@ -1,0 +1,10 @@
+{% extends "ClubManager/base.html" %}
+
+{% block content %}
+  <form method="post">
+    <h1>Select Number of Tickets</h1>
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Purchase Tickets" class="btn">
+  </form>
+{% endblock %}

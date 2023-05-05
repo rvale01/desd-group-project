@@ -2,15 +2,17 @@
 
 {% block content %}
     <h1>Clubs List</h1>
-    <a href="{% url 'add_club' %}">
-        <button>Add New Club</button>
+    <a href="{% url 'add_club' %}" class="btn">
+        Add New Club
     </a>
     {% if clubs %}
         <table>
             <thead>
                 <tr>
+                    <th>Club Id</th>
                     <th>Club Name</th>
                     <th>Representative</th>
+                    <th>Street</th>
                     <th>Street No</th>
                     <th>City</th>
                     <th>Mobile Phone</th>
@@ -24,8 +26,10 @@
             <tbody>
                 {% for club in clubs %}
                 <tr>
+                    <td>{{ club.club.username }}</td>
                     <td>{{ club.club_name }}</td>
                     <td>{{ club.rep_fname }} {{ club.rep_lname }}</td>
+                    <td>{{ club.street }}</td>
                     <td>{{ club.street_no }}</td>
                     <td>{{ club.city }}</td>
                     <td>{{ club.mobile_phone }}</td>

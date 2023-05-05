@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from cinemaManager.models.general import Showing
 from ..forms.Tickets import TicketPurchaseForm
 import requests
+from cinemaManager.models.general import Showing
+from django.contrib import messages
+from customer.views.payment import handle_successful_payment
 
 ADULTS_TICKET_PRICE = 10
 CHILDREN_TICKET_PRICE = 7
@@ -13,10 +16,13 @@ def select_tickets(request, showing_id):
         if form.is_valid():
             request.session['adults_tickets'] = form.cleaned_data['adults_tickets']
             request.session['children_tickets'] = form.cleaned_data['children_tickets']
+            request.session['first_name'] = form.cleaned_data['first_name']
+            request.session['last_name'] = form.cleaned_data['last_name']
+            request.session['children_tickets']
             request.session['showing_id'] = showing_id
             return redirect('ticket_confirmation')
-    else:
-        form = TicketPurchaseForm()
+
+    form = TicketPurchaseForm()
 
     context = {
         'showing': showing,
@@ -54,8 +60,13 @@ def ticket_confirmation(request):
         if response.status_code == 200:
             url = response.json()["url"]
             return redirect(url)
+
         else:
-            pass
+            messages.error(request, "Payment failed. Please try again.")
+
     context = {'showing': showing, 'adults_tickets': adults_tickets, 'children_tickets': children_tickets, 'total_cost': total_cost}
     return render(request, 'customer/TicketConfirmation.html', context)
+
+
+
     

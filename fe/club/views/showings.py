@@ -14,9 +14,9 @@ def showings_by_date(request):
             showings = Showing.objects.filter(date=selected_date)
 
     context = {'form': form, 'showings': showings}
-    return render(request, 'customer/DateSelection.html', context)
+    return render(request, 'ClubManager/DateSelection.html', context)
 
 def showing_details(request, showing_id):
-    showing = Showing.objects.get(id=showing_id)
+    showing = Showing.objects.get(showing_id=showing_id)
     context = {'showing': showing}
-    return render(request, 'customer/showing_details.html', context)
+    return render(request, 'ClubManager/ShowingDetails.html', context)

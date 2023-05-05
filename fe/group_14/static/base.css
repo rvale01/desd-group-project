@@ -147,3 +147,9 @@ main {
   .item-card .btn {
     margin-top: var(--padding-sm);
   }
+
+.social-distancing-form-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

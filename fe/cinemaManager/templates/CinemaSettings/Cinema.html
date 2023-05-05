@@ -1,0 +1,13 @@
+{% extends "CinemaManager/base.html" %}
+
+{% block content %}
+    <form method="post" action="">
+        {% csrf_token %}
+
+        <div class="social-distancing-form-container">
+            <p>{{ form.social_distancing.label }}</p>
+            {{ form.social_distancing }}
+        </div>
+        <button type="submit">Update Social Distancing</button>
+    </form>
+{% endblock %}

@@ -1,40 +1,56 @@
 from django.shortcuts import render, redirect
-from cinemaManager.models.general import Showing
-from ..forms.Tickets import TicketPurchaseForm
+from cinemaManager.models.general import Showing, Booking
+from customAuth.models.auth import Clubs
+from ..forms.Tickets import CLubTicketPurchaseForm
 
-STUDENT_TICKET_PRICE = 10
+CLUB_TICKET_PRICE = 10
 
 def purchase_tickets(request, showing_id):
-    showing = Showing.objects.get(id=showing_id)
+    showing = Showing.objects.get(showing_id=showing_id)
     if request.method == 'POST':
-        form = TicketPurchaseForm(request.POST)
+        form = CLubTicketPurchaseForm(request.POST)
         if form.is_valid():
             request.session['num_tickets'] = form.cleaned_data['num_tickets']
-            return redirect('ticket_confirmation')
-    else:
-        form = TicketPurchaseForm()
+            request.session['showing_id'] = showing_id
+            return redirect('club_ticket_confirmation')
+    
+    form = CLubTicketPurchaseForm()
 
     context = {
         'showing': showing,
         'form': form,
     }
-    return render(request, 'ticket_purchase.html', context)
+    return render(request, 'ClubManager/SelectTickets.html', context)
 
 
-
-def ticket_confirmation(request, showing_id):
-    showing = Showing.objects.get(id=showing_id)
+def club_ticket_confirmation(request):
+    club = Clubs.objects.get(club=request.user)
+    showing_id = request.session.get('showing_id')
+    showing = Showing.objects.get(showing_id=showing_id)
     num_tickets = request.session.get('num_tickets')
-    if num_tickets is None:
-        return redirect('select_tickets', showing_id=showing_id)
-    total_cost = num_tickets * STUDENT_TICKET_PRICE
+    
+    total_cost = num_tickets * CLUB_TICKET_PRICE
+    total_cost = total_cost * (1-(club.discount/100))
+
     available_seats = showing.available_seats
+    
     if available_seats < num_tickets:
-        return render(request, 'customer/NoAvailability.html')
+        return render(request, 'general/NoAvailability.html')
     if request.method == 'POST':
-        # TODO: add details about the stripe payment
-        return redirect('stripe_payment')
-    else:
-        form = TicketPurchaseForm()
-    context = {'form': form, 'showing': showing, 'num_tickets': num_tickets, 'total_cost': total_cost}
-    return render(request, 'general/NoAvailability.html', context)
+        showing.available_seats = showing.available_seats - num_tickets
+        showing.save()
+        club = Clubs.objects.get(club=request.user)
+        club.balance = club.balance-total_cost
+        booking = Booking(customer=request.user, showing = showing, is_paid= False, students_tickets=0, clubs_tickets=num_tickets, total=total_cost)
+        booking.save()
+        return redirect('success_page')
+    context = {
+        'total_cost': total_cost,
+        'num_tickets': num_tickets,
+        'discount': club.discount
+    }
+    return render(request, 'ClubManager/TicketConfirmation.html', context)
+
+def success_page(request):
+    return render(request, 'ClubManager/SuccessPage.html')
+

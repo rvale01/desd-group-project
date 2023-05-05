@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'customAuth',
     'cinemaManager',
     'customer',
-    'account_manager'
+    'account_manager',
+    'student'
 ]
 
 MIDDLEWARE = [
@@ -51,8 +52,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'customAuth.middlewares.SessionTimeoutMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'group_14.urls'
@@ -63,7 +63,9 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'group_14/templates'),
             os.path.join(BASE_DIR, 'cinemaManager/templates'),
-            os.path.join(BASE_DIR, 'customer/templates')
+            os.path.join(BASE_DIR, 'customer/templates'),
+            os.path.join(BASE_DIR, 'club/templates'),
+            os.path.join(BASE_DIR, 'student/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -141,8 +143,25 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'my_session_cookie_name'
-SESSION_COOKIE_AGE = 20 * 60  # 20 minutes in seconds
+# SESSION_COOKIE_AGE = 20 * 60  # 20 minutes in seconds
 
 LOGOUT_REDIRECT_URL = '/'
+
+# TODO: remove these, used just to show print statements
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#         },
+#     },
+# }

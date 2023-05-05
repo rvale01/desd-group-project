@@ -15,7 +15,7 @@
         <ul>
             {% for showing in showings %}
                 <div class="showing-item">
-                    <a href="{% url 'showing_details' showing_id=showing.showing_id %}">
+                    <a href="{% url 'student_showing_details' showing_id=showing.showing_id %}">
                         {{ showing.film.title }} - {{ showing.time }} - Screen {{ showing.screen.name }}
                     </a>
                 </div>

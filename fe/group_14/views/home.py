@@ -6,7 +6,4 @@ def homepage(request):
         return render(request, 'general/home.html')
     else:
         # FIXME: redirect to other pages
-        return None
-
-def login_temp(request):
-    return redirect('homepage')
+        return redirect("userRedirect")
