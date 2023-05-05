@@ -5,6 +5,7 @@ from .views.screen import addScreenForm, addScreen, screenList, editScreen, dele
 from .views.showing import addShowingForm, addShowing, showingList, deleteShowing, editShowing
 from .views.general import homepage
 from .views.clubs import clubs_list, add_club, delete_club, update_club
+from .views.cinema import cinema_settings
 
 urlpatterns = []
 
@@ -41,5 +42,6 @@ urlpatterns += [
 
 urlpatterns += [
     path('', homepage, name = 'homepage'),
+    path('cinema-settings', cinema_settings, name="cinema_settings")
 ]
 

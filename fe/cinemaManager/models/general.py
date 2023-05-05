@@ -48,3 +48,6 @@ class GuestBooking(models.Model):
     children_tickets = models.IntegerField(default=0)
     reserved_seats = ArrayField(models.IntegerField(), blank=True, null=True)
     total = models.IntegerField()
+
+class CinemaSettings(models.Model):
+    social_distancing = models.BooleanField(default=False)
