@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from ..forms.ScreenForm import ScreenForm
-from ..models.general import Screen
+from ..models.general import Screen, Showing
 from django.contrib.auth.decorators import user_passes_test
 from .general import restrict_to_cinema_managers
 
@@ -41,9 +41,15 @@ def editScreen(request, screen_id):
 def deleteScreen(request):
     if request.method == 'POST':
         screen_id = request.POST.get('screen_id')
-        if screen_id:
+        showings_no = Showing.objects.filter(screen_id=screen_id).count()
+
+        if screen_id and showings_no == 0:
             Screen.objects.filter(screen_id=screen_id).delete()
             return redirect('screenList')
+        else:
+            screens = Screen.objects.all()
+            context = {'screens': screens, 'error': 'Cannot delete screen, there are showings associated to it.'}
+            return render(request, 'Screens/DeleteScreen.html',context)
     screens = Screen.objects.all()
     context = {'screens': screens}
     return render(request, 'Screens/DeleteScreen.html',context)

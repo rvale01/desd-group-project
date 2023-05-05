@@ -33,7 +33,7 @@ def deleteFilm(request):
             else:
                 # There are showings associated with this film, so don't delete it
                 films = Film.objects.all()
-                context = {'films': films, 'error': 'Cannot delete film with associated showings.'}
+                context = {'films': films, 'error': 'Cannot delete film, there are showings associated to it.'}
                 return render(request, 'Films/DeleteFilm.html', context)
     films = Film.objects.all()
     context = {'films': films}

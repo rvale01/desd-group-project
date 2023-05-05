@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from ..forms.ShowingForm import ShowingForm
-from ..models.general import Showing 
+from ..models.general import Showing, Booking, GuestBooking
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import user_passes_test
 from .general import restrict_to_cinema_managers
@@ -48,9 +48,16 @@ def addShowing(request):
 def deleteShowing(request):
     if request.method == 'POST':
         showing_id = request.POST.get('showing_id')
-        if showing_id:
+        num_showings = Booking.objects.filter(showing_id=showing_id).count()
+        num_showings += GuestBooking.objects.filter(showing_id=showing_id).count()
+        if showing_id and num_showings==0:
             Showing.objects.filter(showing_id=showing_id).delete()
             return redirect('showingList')
+        else:
+            showings = Showing.objects.all()
+            context = {'showings': showings, 'error': 'Cannot delete the showing, there are bookings connected to it'}
+            return render(request, 'Showings/DeleteShowing.html', context)
+
     showings = Showing.objects.all()
     context = {'showings': showings}
     return render(request, 'Showings/DeleteShowing.html', context)

@@ -6,9 +6,9 @@ from datetime import datetime
 def userRedirect(request):
     if request.user.is_authenticated:
         if request.user.groups.filter(name='cinema_manager').exists():
-            return redirect('cinema_manager')
-        # if user.groups.filter(name='student').exists():
-        #     return redirect('student_dashboard')
+            return redirect('/cinema-manager/')
+        if request.user.groups.filter(name='student').exists():
+            return redirect('student')
         elif request.user.groups.filter(name='club_manager').exists():
             return redirect('/club/')
         
@@ -22,7 +22,7 @@ def customLogin(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('/redirect-user/')
+                return redirect('/auth/redirect-user/')
             else:
                 return render(request, 'registration/login.html', context={'error_message': 'Invalid username or password'})
         else:
