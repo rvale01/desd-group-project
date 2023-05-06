@@ -5,12 +5,15 @@ from datetime import datetime, timedelta
 from django.contrib.auth.decorators import user_passes_test
 from .general import restrict_to_cinema_managers
 
+# Display the form to add a new showing
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def addShowingForm(request):
     form = ShowingForm()
     if request.method == "GET":
         return render(request, 'Showings/AddShowing.html', {'form':form})
-    
+
+
+# Add a new showing to the database
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def addShowing(request):
     if request.method == "POST":
@@ -44,6 +47,7 @@ def addShowing(request):
         form = ShowingForm()
     return render(request, 'Showings/AddShowing.html', {'form':form})
 
+# Delete a showing from the database
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def deleteShowing(request):
     if request.method == 'POST':
@@ -62,12 +66,14 @@ def deleteShowing(request):
     context = {'showings': showings}
     return render(request, 'Showings/DeleteShowing.html', context)
 
+# List all showings
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def showingList(request):
     showings = Showing.objects.all()
     context = {'showings': showings}
     return render(request, 'Showings/ListShowings.html', context)
 
+# Edit a showing's details
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def editShowing(request, showing_id):
     showing = Showing.objects.get(showing_id=showing_id)

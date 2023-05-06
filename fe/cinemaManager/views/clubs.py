@@ -6,11 +6,13 @@ from ..forms.ClubCreationForm import ClubCreationForm
 from django.contrib.auth.models import User, Group
 import uuid
 
+# List all clubs
 def clubs_list(request):
     clubs = Clubs.objects.all()
     context = {'clubs': clubs}
     return render(request, 'ClubsDetails/ClubsList.html', context)
 
+#Add a new club
 def add_club(request):
     if request.method == 'POST':
         form = ClubCreationForm(request.POST)
@@ -41,6 +43,7 @@ def add_club(request):
     return render(request, 'ClubsDetails/NewClubForm.html', {'form': form})
 
 
+#Update club's infromation
 def update_club(request, club_id):
     club = Clubs.objects.get(id=club_id)
 
@@ -55,6 +58,7 @@ def update_club(request, club_id):
     context = {'form': form}
     return render(request, 'CLubsDetails/UpdateClubDetails.html', context)
 
+#Delete Clubs
 def delete_club(request, club_id):
     club_instance = Clubs.objects.get(id=club_id)
     club_instance.delete()
