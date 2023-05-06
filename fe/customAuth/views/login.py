@@ -23,13 +23,14 @@ def customLogin(request):
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
 
-            # If the user is authenticated, log them in and redirect them
+            # If the user password and username are correct, the user var is not empty, therefore these lines of code log them in and redirect them
             if user is not None:
                 login(request, user)
                 return redirect('/auth/redirect-user/')
             else:
+                form = AuthenticationForm()
                 # If authentication failed, show an error message
-                return render(request, 'registration/login.html', context={'error_message': 'Invalid username or password'})
+                return render(request, 'registration/login.html', context={"form":form, 'error_message': 'Invalid username or password'})
         else:
             # If the form is not valid, show an error message
             form = AuthenticationForm()

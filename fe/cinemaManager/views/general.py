@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 
-# Define a test function to check if a user belongs to the 'cinema_manager' group
+# function used to check if a user belongs to the 'cinema_manager' group
 def restrict_to_cinema_managers(user):
     return user.groups.filter(name='cinema_manager').exists()
 
