@@ -4,6 +4,6 @@ from cinemaManager.models.general import Booking
 
 def booking_list(request):
     current_user = request.user
-    bookings = Booking.objects.filter(user=current_user)
+    bookings = Booking.objects.filter(customer=current_user.id)
 
-    return render(request, 'BookingList.html', {'bookings': bookings})
+    return render(request, 'ClubManager/BookingList.html', {'bookings': bookings})

@@ -53,6 +53,7 @@ def club_ticket_confirmation(request):
                 total=total_cost,
                 booking_date = timezone.now().date()
             )
+            club.save()
             booking.save()
             return redirect('success_page')
         else:

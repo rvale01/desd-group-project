@@ -5,7 +5,7 @@
   <p>You succesfully booked {{tickets_no}} for {{showing.film.title}} on the {{showing.date}} at {{showing.time}} </p>
   
   {% if social_distancing%}
-    <p> Booked seats:
+    <p>  seat number:
       {% for seat in seats %}
         {{ seat }}
       {% endfor %}

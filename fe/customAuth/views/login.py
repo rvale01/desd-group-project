@@ -9,7 +9,7 @@ def userRedirect(request):
         if request.user.groups.filter(name='cinema_manager').exists():
             return redirect('/cinema-manager/')
         elif request.user.groups.filter(name='student').exists():
-            return redirect('student')
+            return redirect('/students/')
         elif request.user.groups.filter(name='club_manager').exists():
             return redirect('/club/')
         elif request.user.groups.filter(name='account_manager').exists():

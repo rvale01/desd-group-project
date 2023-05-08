@@ -9,17 +9,17 @@
         <tr>
           <th>Booking ID</th>
           <th>Date</th>
-          <th>Time</th>
-          <th>Details</th>
+          <th>Total</th>
+          <th>Tickets n.</th>
         </tr>
       </thead>
       <tbody>
         {% for booking in bookings %}
           <tr>
-            <td>{{ booking.id }}</td>
-            <td>{{ booking.date }}</td>
-            <td>{{ booking.time }}</td>
-            <td>{{ booking.details }}</td>
+            <td>{{ booking.booking_id }}</td>
+            <td>{{ booking.booking_date }}</td>
+            <td>{{ booking.total }}</td>
+            <td>{{ booking.clubs_tickets }}</td>
           </tr>
         {% endfor %}
       </tbody>
