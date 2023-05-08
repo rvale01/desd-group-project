@@ -16,7 +16,7 @@
 
 
 
-# Cinema Management System
+# Cinema System
 A feature-rich and comprehensive web application designed to streamline and simplify the process of managing a cinema, including ticket booking, user account management, and implementing special discounts for club members and students.
 
 # Features
