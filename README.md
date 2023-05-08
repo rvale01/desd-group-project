@@ -1,14 +1,24 @@
-# FLOW LOGIN
+# USERS:
 
-- User logs in
-- get all the details and check if user exist
-    - if user does not exist or details are wrong, return error
-    - if user exists, get user type, save userid and usertype in localstorage, then redirect to appropriate page
+SUPERUSER:
+    USERNAME: root
+    PASS: root
 
-# REGISTRATION CUSTOMER FLOW
-- User fills in form
-- get details from form (allow the user to choose user type (CLUB, CUSTOMER OR STUDENT))
-- if all details are correct a new user is created, 
+CINEMA MANAGER:
+    USERNAME: CinemaManager
+    PASS: Password2023!
 
-# REGISTRATION FOR ADMIN
+STUDENT:
+    USERNAME: Student1
+    PASS: Password2023!
+
+CLUB:
+    USERNAME: 12345
+    PASS: Password2023!
+
+ACCOUNT MANAGER:
+    USERNAME: AccountManager
+    PASS: Password2023!
+
+
 
