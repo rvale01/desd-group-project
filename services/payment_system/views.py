@@ -3,7 +3,7 @@ import stripe
 from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import TicketSerializer
+from .serializers import TicketSerializer, TopupSerializer
 
 stripe.api_key = "sk_test_51ML6GvA5JuwZl2aDVTNJ2ITAXhbXiGWTJTKbvQVs0eDqnMOn9GTjOB46QGUgR3Ad2kZ664yHFI1OCG0sAneQZyln00n8Zu12I7"
 
@@ -55,18 +55,17 @@ def create_default_checkout_session(request):
 
 @api_view(["POST"])
 def add_credit(request):
-    serializer = TicketSerializer(data=request.data)
-
+    serializer = TopupSerializer(data=request.data)
     if serializer.is_valid():
         username = serializer.validated_data["username"]
-        amount = int(serializer.validated_data["amount"])
-        success_url = serializer.validated_data["success_url"]
+        amount = serializer.validated_data["amount"] * 100
+        success_url = serializer.validated_data["url"]
 
         line_items = [
             {
                 "price_data": {
                     "currency": "gbp",
-                    "unit_amount": amount * 100,
+                    "unit_amount": amount,
                     "product_data": {
                         "name": "Top up for " + username,
                     },

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from ..forms.ShowingForm import ShowingForm
-from ..models.general import Showing, Booking, GuestBooking
+from ..models.general import Showing, Booking, GuestBooking, CinemaSettings
 from datetime import datetime, timedelta
 from django.contrib.auth.decorators import user_passes_test
 from .general import restrict_to_cinema_managers
@@ -21,8 +21,14 @@ def addShowing(request):
         if form.is_valid():
             showing = form.save(commit=False)
             screen = showing.screen
-            available_seats = form.cleaned_data['available_seats']
             
+            social_distancing = CinemaSettings.objects.get(id=1).social_distancing
+            
+            available_seats = form.cleaned_data['available_seats']
+
+            if(social_distancing):
+                available_seats = available_seats / 3
+
             # Check if there are no other showings at the same screen on the same day and time
             date = showing.date
             start_time = showing.time
@@ -70,7 +76,11 @@ def deleteShowing(request):
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def showingList(request):
     showings = Showing.objects.all()
-    context = {'showings': showings}
+    
+    social_distancing = CinemaSettings.objects.get(id=1).social_distancing
+
+    context = {'showings': showings, 'social_distancing': social_distancing}
+
     return render(request, 'Showings/ListShowings.html', context)
 
 # Edit a showing's details
@@ -83,6 +93,11 @@ def editShowing(request, showing_id):
         if form.is_valid():
             screen = showing.screen
             available_seats = form.cleaned_data['available_seats']
+            
+            social_distancing = CinemaSettings.objects.get(id=1).social_distancing
+            if(social_distancing):
+                available_seats = available_seats / 3
+
 
             date = showing.date
             start_time = showing.time

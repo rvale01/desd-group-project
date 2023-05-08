@@ -3,7 +3,8 @@ from django.urls import path
 from .views.general import homepage, student_booking_history
 from .views.credit import success_top_up_student, add_credit_student
 from .views.showings import showing_details, showings_by_date
-from .views.tickets import select_tickets, ticket_confirmation, handle_student_successful_payment
+from .views.tickets import select_tickets, ticket_confirmation
+from .views.payment import handle_student_successful_payment
 from django.urls import path
 
 urlpatterns = [

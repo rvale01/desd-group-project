@@ -4,12 +4,13 @@ import requests
 
 def add_credit_club(request):
     if(request.method == "POST"):
+        request.session['amount'] = request.POST.get('amount')
         response = requests.post(
             "http://services:8001/api/payment/add-credit/",
             json={
                 "username": request.user.username,
                 "amount": request.POST.get('amount'),
-                "success_url": "club/top-up/success/"
+                "url": "club/top-up/success/"
             },
         )
 
@@ -24,7 +25,7 @@ def add_credit_club(request):
 def success_top_up_club(request):
     club = Clubs.objects.get(club=request.user)
 
-    amount = int(request.POST.get('amount'))
-    club.credit += amount
+    amount = request.session.get('amount')
+    club.balance += int(amount)
     club.save()
     return redirect('student_homepage') 

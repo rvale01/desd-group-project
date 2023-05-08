@@ -1,7 +1,7 @@
 # views.py
 from django.shortcuts import render
 from ..forms.DateSelection import DateSelectionForm
-from cinemaManager.models.general import Showing
+from cinemaManager.models.general import Showing, CinemaSettings
 
 def showings_by_date(request):
     showings = []
@@ -18,5 +18,8 @@ def showings_by_date(request):
 
 def showing_details(request, showing_id):
     showing = Showing.objects.get(showing_id=showing_id)
-    context = {'showing': showing}
+    
+    social_distancing = CinemaSettings.objects.get(id=1).social_distancing
+
+    context = {'showing': showing, 'social_distancing': social_distancing}
     return render(request, 'ClubManager/ShowingDetails.html', context)

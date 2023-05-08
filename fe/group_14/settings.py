@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'cinemaManager',
     'customer',
     'account_manager',
-    'student'
+    'student',
+    'mathfilters'
 ]
 
 MIDDLEWARE = [

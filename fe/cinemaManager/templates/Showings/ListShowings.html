@@ -1,4 +1,5 @@
 {% extends "CinemaManager/base.html" %}
+{% load mathfilters %}
 
 {% block content %}
     <h1>Showings</h1>
@@ -13,7 +14,14 @@
                 <h3>{{ showing.film.title }}</h3>
                 <p>Time: {{ showing.time }}</p>
                 <p>Date: {{ showing.date }}</p>
-                <p>Available Seats: {{ showing.available_seats }}</p>
+                <p>Available Seats: 
+                    {% if social_distancing%}
+                        {{ showing.available_seats|intdiv:3 }}
+                        (considering social distancing)
+                    {% else %}
+                        {{ showing.available_seats }}
+                    {% endif %}
+                </p>
                 <p>Screen: {{ showing.screen.name }}</p>
             </div>
             <div class="item-actions">

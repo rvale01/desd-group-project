@@ -23,7 +23,7 @@ def add_club_account_ac(request):
 
             # Create a new user with a random password
             username = str(uuid.uuid4())
-            password = User.objects.make_random_password()
+            password = form.cleaned_data['password']
             new_user = User.objects.create_user(username=username, password=password)
             new_user.save()
 

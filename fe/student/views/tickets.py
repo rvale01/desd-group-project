@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
-from cinemaManager.models.general import Showing
+from cinemaManager.models.general import Showing, CinemaSettings
 from ..forms.Tickets import StudentTicketPurchaseForm
 import requests
 from cinemaManager.models.general import Showing
-from django.contrib import messages
-from student.views.payment import handle_student_successful_payment
+from django.contrib.auth.decorators import user_passes_test
+from .general import restrict_to_student
 from customAuth.models.auth import StudentAccounts
 from django.contrib.auth.decorators import login_required
 
 STUDENT_TICKET_PRICE = 8
 
 # Decorate the select_tickets view with login_required to restrict access to authenticated users only
-@login_required
+@user_passes_test(restrict_to_student, login_url='/auth/accounts/login/')
 def select_tickets(request, showing_id):
     # Get the showing object based on the provided showing_id
     showing = Showing.objects.get(showing_id=showing_id)
@@ -44,7 +44,7 @@ def select_tickets(request, showing_id):
     return render(request, 'student/SelectTickets.html', context)
 
 # Decorate the ticket_confirmation view with login_required to restrict access to authenticated users only
-@login_required
+@user_passes_test(restrict_to_student, login_url='/auth/accounts/login/')
 def ticket_confirmation(request):
     # Retrieve the showing_id from the session
     showing_id = request.session.get('showing_id')
@@ -63,8 +63,13 @@ def ticket_confirmation(request):
     total_cost = student_tickets * STUDENT_TICKET_PRICE
     total_cost * (1-(student.discount/100)) 
 
-    # Check if there are enough available seats for the student_tickets
-    available_seats = showing.available_seats
+    social_distancing = CinemaSettings.objects.get(id=1).social_distancing
+
+    if(social_distancing):
+        available_seats = (showing.available_seats / 3)
+    else:
+        # Check if there are enough available seats for the student_tickets
+        available_seats = showing.available_seats
     if available_seats < student_tickets:
         # Render the NoAvailability.html template if there aren't enough seats
         return render(request, 'student/NoAvailability.html')

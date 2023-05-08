@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from cinemaManager.models.general import Showing
+from cinemaManager.models.general import Showing, CinemaSettings
 from ..forms.Tickets import TicketPurchaseForm
 import requests
 from cinemaManager.models.general import Showing
@@ -56,8 +56,14 @@ def ticket_confirmation(request):
     total_cost = (adults_tickets) * (ADULTS_TICKET_PRICE)
     total_cost += (children_tickets) * (CHILDREN_TICKET_PRICE)
 
-    # Check the availability of seats for the showing
-    available_seats = showing.available_seats
+    social_distancing = CinemaSettings.objects.get(id=1).social_distancing
+
+    if social_distancing: 
+        available_seats = (showing.available_seats / 3)
+    else:
+        # Check the availability of seats for the showing
+        available_seats = showing.available_seats
+        
     if available_seats < (adults_tickets + children_tickets):
         return render(request, 'customer/NoAvailability.html')
 

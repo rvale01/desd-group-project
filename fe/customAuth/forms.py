@@ -7,10 +7,7 @@ from .models.auth import StudentAccounts, Clubs
 class CustomerCreationForm(UserCreationForm):  
     USER_TYPES = (
         ("student", "student"),
-        # ("cinema_manager", "Cinema Manager"),
-        # ("account_manager", "Account Manager"),
         ("club_manager", "Club"),
-        ("customer", "Customer")
     )
     username = forms.CharField(label='username/Club Number', min_length=5, max_length=150)  
     password1 = forms.CharField(label='password', widget=forms.PasswordInput)  

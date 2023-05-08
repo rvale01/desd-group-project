@@ -15,13 +15,9 @@ def add_student_account_ac(request):
         if form.is_valid():
             username = form.cleaned_data['username']
 
-            if StudentAccounts.objects.filter(user_username=username).exists():
-                form.add_error('username', 'A student with this username already exists.')
-                return render(request, 'AccountManager/Students/NewStudent.html', {'form': form})
-
             # Create a new user with a random password
             password = form.cleaned_data['password']
-            new_user = StudentAccounts.objects.create_user(username=username, password=password)
+            new_user = User.objects.create_user(username=username, password=password)
             new_user.save()
 
             # Add the new user to the 'student' group

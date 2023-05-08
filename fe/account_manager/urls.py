@@ -29,3 +29,8 @@ urlpatterns += [
     path('accounts/students/edit/<int:student_id>', update_student_account_ac, name = 'update_student_account_ac'),
     path('accounts/students/delete/<int:student_id>', delete_student_account_ac, name = 'delete_student_account_ac'),
 ]
+
+# FIXME: do this page
+# urlpatterns += [
+#     path('bookings/list')
+# ]

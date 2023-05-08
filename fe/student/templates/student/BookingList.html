@@ -10,7 +10,6 @@
             <th>Showing ID</th>
             <th>Movie Title</th>
             <th>Students Tickets</th>
-            <th>Reserved Seats</th>
             <th>Total</th>
             <th>Booking Date</th>
         </tr>
@@ -22,7 +21,6 @@
             <td>{{ booking.showing.showing_id }}</td>
             <td>{{ booking.showing.film.title }}</td>
             <td>{{ booking.students_tickets }}</td>
-            <td>{{ booking.reserved_seats|join:", " }}</td>
             <td>{{ booking.total }}</td>
             <td>{{ booking.booking_date }}</td>
         </tr>
