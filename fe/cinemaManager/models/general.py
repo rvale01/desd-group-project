@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
+from django.utils import timezone
+
 class Film(models.Model):
     title = models.CharField(max_length=100, default="")
     description = models.TextField(default="")
@@ -36,6 +38,7 @@ class Booking(models.Model):
     clubs_tickets = models.IntegerField()
     reserved_seats = ArrayField(models.IntegerField(), blank=True, null=True)
     total = models.IntegerField()
+    booking_date = models.DateField(default=timezone.now)
 
 # for not logged in users -> adults, children
 class GuestBooking(models.Model):
@@ -48,6 +51,7 @@ class GuestBooking(models.Model):
     children_tickets = models.IntegerField(default=0)
     reserved_seats = ArrayField(models.IntegerField(), blank=True, null=True)
     total = models.IntegerField()
+    booking_date = models.DateField(default=timezone.now)
 
 class CinemaSettings(models.Model):
     social_distancing = models.BooleanField(default=False)

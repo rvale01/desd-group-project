@@ -1,6 +1,7 @@
 
 from django.shortcuts import render
 from cinemaManager.models.general import GuestBooking, Showing, CinemaSettings
+from django.utils import timezone
 
 # Define constants for adults and children ticket prices
 ADULTS_TICKET_PRICE = 10
@@ -69,7 +70,8 @@ def handle_successful_payment(request):
         adults_tickets=adults_tickets,
         children_tickets=children_tickets,
         total=total_cost,
-        reserved_seats=seats
+        reserved_seats=seats,
+        booking_date = timezone.now().date()
     )
     # Save the new GuestBooking object
     booking.save()

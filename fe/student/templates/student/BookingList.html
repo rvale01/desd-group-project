@@ -1,0 +1,36 @@
+{% extends "student/base.html" %}
+{% block content %}
+
+<h2>Booking History</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Showing ID</th>
+            <th>Movie Title</th>
+            <th>Students Tickets</th>
+            <th>Reserved Seats</th>
+            <th>Total</th>
+            <th>Booking Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.booking_id }}</td>
+            <td>{{ booking.showing.showing_id }}</td>
+            <td>{{ booking.showing.film.title }}</td>
+            <td>{{ booking.students_tickets }}</td>
+            <td>{{ booking.reserved_seats|join:", " }}</td>
+            <td>{{ booking.total }}</td>
+            <td>{{ booking.booking_date }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No bookings found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

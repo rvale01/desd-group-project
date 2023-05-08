@@ -2,6 +2,7 @@ from django.shortcuts import render
 from cinemaManager.models.general import Booking, Showing
 from django.contrib.auth.decorators import login_required
 from customAuth.models.auth import StudentAccounts
+from django.utils import timezone
 
 # Define the student ticket price
 STUDENT_TICKET_PRICE = 8
@@ -18,6 +19,7 @@ def handle_student_successful_payment(request):
 
     # Calculate the total cost of the booking
     total_cost = students_tickets * STUDENT_TICKET_PRICE
+    total_cost = total_cost * (1-(student.discount/100))
 
     # Get the student object associated with the user
     student = StudentAccounts.objects.get(user=request.user)
@@ -37,7 +39,8 @@ def handle_student_successful_payment(request):
         is_paid=False,
         students_tickets=students_tickets,
         clubs_tickets=0,
-        total=total_cost
+        total=total_cost,
+        booking_date = timezone.now().date()
     )
     booking.save()
 

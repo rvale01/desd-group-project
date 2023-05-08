@@ -1,0 +1,14 @@
+{% extends "student/base.html" %}
+{% block content %}
+    <h3>Welcome!</h3>
+
+    <p>This is the homepage for a student!</p>
+    <p>You have £{{ credit }} on your account and your discount is of {{ discount }}</p>
+    <br/>
+    <a class= btn href="/auth/accounts/logout">
+        Logout
+    </a>
+    <a>
+        Top up account
+    </a>
+{% endblock %}

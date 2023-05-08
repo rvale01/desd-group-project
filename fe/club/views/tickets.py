@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from cinemaManager.models.general import Showing, Booking
 from customAuth.models.auth import Clubs
 from ..forms.Tickets import CLubTicketPurchaseForm
+from django.utils import timezone
 
 CLUB_TICKET_PRICE = 10
 
@@ -41,7 +42,15 @@ def club_ticket_confirmation(request):
         showing.save()
         club = Clubs.objects.get(club=request.user)
         club.balance = club.balance-total_cost
-        booking = Booking(customer=request.user, showing = showing, is_paid= False, students_tickets=0, clubs_tickets=num_tickets, total=total_cost)
+        booking = Booking(
+            customer=request.user, 
+            showing = showing, 
+            is_paid= False, 
+            students_tickets=0, 
+            clubs_tickets=num_tickets, 
+            total=total_cost,
+            booking_date = timezone.now().date()
+        )
         booking.save()
         return redirect('success_page')
     context = {
