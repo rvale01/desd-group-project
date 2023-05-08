@@ -1,0 +1,11 @@
+{% extends "AccountManager/base.html" %}
+
+{% block content %}
+    <form method="post">
+        <h1>Update Account</h1>
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Update</button>
+    </form>
+    <a href="{% url 'clubs_list_ac' %}">Back to accounts List</a>
+{% endblock %}

@@ -4,7 +4,7 @@ from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 
 class ClubCreationForm(forms.ModelForm):
-    password = forms.CharField(max_length=100)
+    password = forms.CharField(max_length=100, required=False)
     email = forms.EmailField()
     mobile_phone = PhoneNumberField()
     class Meta:

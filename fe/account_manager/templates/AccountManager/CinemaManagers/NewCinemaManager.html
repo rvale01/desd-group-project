@@ -1,0 +1,21 @@
+{% extends "AccountManager/base.html" %}
+
+{% block content %}
+    <form method="post">
+        <h1>Create a New Account</h1>
+        {% csrf_token %}
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {{ form.errors.username }}
+
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        {{ form.errors.password1 }}
+
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        {{ form.errors.password2 }}
+        <button type="submit">Create</button>
+    </form>
+{% endblock %}
+

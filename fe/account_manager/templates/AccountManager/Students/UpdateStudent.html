@@ -1,11 +1,11 @@
-{% extends "CinemaManager/base.html" %}
+{% extends "AccountManager/base.html" %}
 
 {% block content %}
-    <h1>Update Account</h1>
     <form method="post">
+        <h1>Update Account</h1>
         {% csrf_token %}
         {{ form }}
         <button type="submit">Update</button>
     </form>
-    <a href="{% url 'clubs_list' %}">Back to accounts List</a>
+    <a href="{% url 'students_list_ac' %}">Back to accounts List</a>
 {% endblock %}

@@ -7,10 +7,13 @@ def userRedirect(request):
     if request.user.is_authenticated:
         if request.user.groups.filter(name='cinema_manager').exists():
             return redirect('/cinema-manager/')
-        if request.user.groups.filter(name='student').exists():
+        elif request.user.groups.filter(name='student').exists():
             return redirect('student')
         elif request.user.groups.filter(name='club_manager').exists():
             return redirect('/club/')
+        elif request.user.groups.filter(name='account_manager').exists():
+            return redirect('/account-manager/')
+        
         
 def customLogin(request):
     if request.method == 'POST':

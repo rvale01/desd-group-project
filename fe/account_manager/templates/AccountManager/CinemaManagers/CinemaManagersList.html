@@ -1,0 +1,32 @@
+{% extends "AccountManager/base.html" %}
+
+{% block content %}
+    <h1>Account List</h1>
+        <a href="{% url 'new_cinema_manager_ac' %}" class="btn">
+            Add a new Account
+        </a>
+    {% if cinema_managers %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in cinema_managers %}
+                <tr>
+                    <td>{{ account.username }}</td>
+                    <td>
+                        <a href="{% url 'delete_cinema_manager_account_ac' account.id %}" class="btn">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No Cinema Managers found.</p>
+    {% endif %}
+{% endblock %}

@@ -65,7 +65,8 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'cinemaManager/templates'),
             os.path.join(BASE_DIR, 'customer/templates'),
             os.path.join(BASE_DIR, 'club/templates'),
-            os.path.join(BASE_DIR, 'student/templates')
+            os.path.join(BASE_DIR, 'student/templates'),
+            os.path.join(BASE_DIR, 'account_manager/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -145,7 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'my_session_cookie_name'
-# SESSION_COOKIE_AGE = 20 * 60  # 20 minutes in seconds
+SESSION_COOKIE_AGE = 20 * 60  # 20 minutes in seconds
 
 LOGOUT_REDIRECT_URL = '/'
 

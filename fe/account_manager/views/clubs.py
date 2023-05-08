@@ -2,25 +2,24 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
 from customAuth.models.auth import Clubs
 from django.shortcuts import render, redirect
-from ..forms.AccountCreationForm import AccountCreationForm
-from django.contrib import messages
 from django.contrib.auth.models import User, Group
+from cinemaManager.forms.ClubCreationForm import ClubCreationForm
 import uuid
 
-def accounts_list(request):
+def clubs_list_ac(request):
     clubs = Clubs.objects.all()
     context = {'clubs': clubs}
-    return render(request, 'AccountsDetails/AccountsList.html', context)
+    return render(request, 'AccountManager/Clubs/ClubsList.html', context)
 
-def add_account(request):
+def add_club_account_ac(request):
     if request.method == 'POST':
-        form = AccountCreationForm(request.POST)
+        form = ClubCreationForm(request.POST)
         if form.is_valid():
             club_name = form.cleaned_data['club_name']
 
             if Clubs.objects.filter(club_name=club_name).exists():
                 form.add_error('club_name', 'A club with this name already exists.')
-                return render(request, 'AccountsDetails/NewAccountForm.html', {'form': form})
+                return render(request, 'AccountManager/Clubs/NewClub.html', {'form': form})
 
             # Create a new user with a random password
             username = str(uuid.uuid4())
@@ -36,29 +35,40 @@ def add_account(request):
             club = form.save(commit=False)
             club.club = new_user
             club.save()
-            return redirect("accounts_list")
+            return redirect("clubs_list_ac")
     else:
-        form = AccountCreationForm()
-    return render(request, 'AccountsDetails/NewAccountForm.html', {'form': form})
+        form = ClubCreationForm()
+    return render(request, 'AccountManager/Clubs/NewClub.html', {'form': form})
 
 
-def update_account(request, club_id):
+def update_club_account_ac(request, club_id):
     club = Clubs.objects.get(id=club_id)
 
     if request.method == 'POST':
-        form = AccountCreationForm(request.POST, instance=club)
+        form = ClubCreationForm(request.POST, instance=club)
         if form.is_valid():
+
+            user = User.objects.get(id=club.club.id)
+            password = form.cleaned_data['password']
+
+            if(password != ""):
+                user.password = password
+                user.save()
             form.save()
-            return redirect('accounts_list')
+            return redirect('clubs_list_ac')
     else:
-        form = AccountCreationForm(instance=club)
+        form = ClubCreationForm(instance=club)
 
     context = {'form': form}
-    return render(request, 'AccountsDetails/UpdateAccountsDetails.html', context)
+    return render(request, 'AccountManager/Clubs/UpdateClub.html', context)
 
-def delete_account(request, club_id):
+def delete_club_account_ac(request, club_id):
     club_instance = Clubs.objects.get(id=club_id)
-    club_instance.delete()
-    return redirect('accounts_list')
+    if(club_instance.balance >= 0):
+        club_instance.delete()
+        return redirect('clubs_list_ac')
+    else:
+        error_message = "Cannot delete a club with a negative balance"
+        return render(request, 'AccountManager/ErrorDeleteAccount.html', {'error_message': error_message})
 
 

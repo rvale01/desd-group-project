@@ -1,0 +1,50 @@
+{% extends "AccountManager/base.html" %}
+
+{% block content %}
+    <h1>Account List</h1>
+        <a href="{% url 'add_student_account_ac' %}" class="btn">
+            Add a new Account
+        </a>
+    {% if students %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Street</th>
+                    <th>Street No</th>
+                    <th>City</th>
+                    <th>Mobile Phone</th>
+                    <th>Discount</th>
+                    <th>Balance</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.user.username }}</td>
+                    <td>{{ student.street }}</td>
+                    <td>{{ student.street_no }}</td>
+                    <td>{{ student.city }}</td>
+                    <td>{{ student.mobile_phone }}</td>
+                    <td>{{ student.discount }}%</td>
+                    <td>£{{ student.balance }}</td>
+                    <td>
+                        <a href="{% url 'update_student_account_ac' student.id %}" class="btn">
+                            Update
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_student_account_ac' student.id %}" class="btn">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No students found.</p>
+    {% endif %}
+{% endblock %}

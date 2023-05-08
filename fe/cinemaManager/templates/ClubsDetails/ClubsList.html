@@ -2,6 +2,9 @@
 
 {% block content %}
     <h1>Clubs List</h1>
+    {% if error_message %}
+        <p>{{error_message}}</p>
+    {% endif %}
     <a href="{% url 'add_club' %}" class="btn">
         Add New Club
     </a>

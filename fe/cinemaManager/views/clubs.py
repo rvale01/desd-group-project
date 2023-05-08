@@ -57,7 +57,11 @@ def update_club(request, club_id):
 
 def delete_club(request, club_id):
     club_instance = Clubs.objects.get(id=club_id)
-    club_instance.delete()
-    return redirect('clubs_list')
+    if(club_instance.balance > 0):
+        club_instance.delete()
+        return redirect('clubs_list', {'error_message': error_message})
+    else:
+        error_message = "Cannot delete a club with a negative balance"
+        return redirect('clubs_list', {'error_message': error_message})
 
 
