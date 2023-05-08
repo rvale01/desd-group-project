@@ -26,7 +26,7 @@ A feature-rich and comprehensive web application designed to streamline and simp
 -Showings and Cinema Management: The CinemaManager app handles the scheduling and management of movie showings, as well as other cinema-related information such as screen sizes and seating capacities.
 -Club Membership Management and Discounts: The Club app manages club memberships, allowing members to enjoy exclusive discounts on ticket purchases and manage their account balances.
 -Student Discounts and Account Management: The Student app offers special discounts for student users, providing an incentive for students to enjoy movies at a reduced cost.
--Frontend Templates and Views: The Fe and group_14 apps handle frontend templates, providing a consistent and visually appealing user interface for all components of the system.
+-Frontend Templates and Views: The group_14 app handle frontend templates, providing a consistent and visually appealing user interface for all components of the system.  
 # Installation
 
 Set up a Python virtual environment using python -m venv venv and activate it with source venv\Scripts\activate (Windows).
