@@ -1,6 +1,7 @@
 # urls.py
 from django.urls import path
 from .views.general import homepage, student_booking_history
+from .views.credit import success_top_up_student, add_credit_student
 from .views.showings import showing_details, showings_by_date
 from .views.tickets import select_tickets, ticket_confirmation, handle_student_successful_payment
 from django.urls import path
@@ -19,5 +20,6 @@ urlpatterns += [
 urlpatterns += [
     path('', homepage, name='student_homepage'),
     path('booking-history/', student_booking_history, name="student_booking_history"),
-    path('top-up/', top_up_student, name='top_up_student'),
+    path('top-up/success/', success_top_up_student, name='success_top_up_student'),
+    path('top-up/form/', add_credit_student, name="add_credit_student")
 ]

@@ -47,7 +47,39 @@ def create_default_checkout_session(request):
             line_items=line_items,
             mode="payment",
             success_url="http://localhost:8000/customer/success",
-            cancel_url="http://example.com/canceled",
+            cancel_url="http://localhost:8000",
+        )
+
+    return Response({"url": session.url})
+
+
+@api_view(["POST"])
+def add_credit(request):
+    serializer = TicketSerializer(data=request.data)
+
+    if serializer.is_valid():
+        username = serializer.validated_data["username"]
+        amount = int(serializer.validated_data["amount"])
+        success_url = serializer.validated_data["success_url"]
+
+        line_items = [
+            {
+                "price_data": {
+                    "currency": "gbp",
+                    "unit_amount": amount * 100,
+                    "product_data": {
+                        "name": "Top up for " + username,
+                    },
+                },
+                "quantity": 1,
+            }
+        ]
+        session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=line_items,
+            mode="payment",
+            success_url="http://localhost:8000/" + success_url,
+            cancel_url="http://localhost:8000/",
         )
 
     return Response({"url": session.url})

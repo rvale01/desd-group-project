@@ -35,28 +35,33 @@ def club_ticket_confirmation(request):
 
     available_seats = showing.available_seats
     
+    error_message = ""
     if available_seats < num_tickets:
         return render(request, 'general/NoAvailability.html')
     if request.method == 'POST':
         showing.available_seats = showing.available_seats - num_tickets
         showing.save()
         club = Clubs.objects.get(club=request.user)
-        club.balance = club.balance-total_cost
-        booking = Booking(
-            customer=request.user, 
-            showing = showing, 
-            is_paid= False, 
-            students_tickets=0, 
-            clubs_tickets=num_tickets, 
-            total=total_cost,
-            booking_date = timezone.now().date()
-        )
-        booking.save()
-        return redirect('success_page')
+        if(club.balance >= total_cost):
+            club.balance = club.balance-total_cost
+            booking = Booking(
+                customer=request.user, 
+                showing = showing, 
+                is_paid= False, 
+                students_tickets=0, 
+                clubs_tickets=num_tickets, 
+                total=total_cost,
+                booking_date = timezone.now().date()
+            )
+            booking.save()
+            return redirect('success_page')
+        else:
+            error_message = "Top up your account before the booking"
     context = {
         'total_cost': total_cost,
         'num_tickets': num_tickets,
-        'discount': club.discount
+        'discount': club.discount,
+        'error': error_message
     }
     return render(request, 'ClubManager/TicketConfirmation.html', context)
 

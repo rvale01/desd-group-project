@@ -58,8 +58,10 @@ def ticket_confirmation(request):
     # Convert student_tickets to int if it's not None, otherwise set it to 0
     student_tickets = int(student_tickets) if student_tickets is not None else 0
 
+    student = StudentAccounts.objects.get(user=request.user)
     # Calculate the total cost for the student tickets
     total_cost = student_tickets * STUDENT_TICKET_PRICE
+    total_cost * (1-(student.discount/100)) 
 
     # Check if there are enough available seats for the student_tickets
     available_seats = showing.available_seats

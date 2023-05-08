@@ -2,14 +2,14 @@ from django.shortcuts import render, redirect
 from customAuth.models.auth import Clubs
 import requests
 
-CLUB_TICKET_PRICE = 10
-
-def add_credit(request):
+def add_credit_club(request):
     if(request.method == "POST"):
         response = requests.post(
-            "http://services:8001/api/payment/add-credit-club/",
+            "http://services:8001/api/payment/add-credit/",
             json={
                 "username": request.user.username,
+                "amount": request.POST.get('amount'),
+                "success_url": "club/top-up/success/"
             },
         )
 
@@ -19,8 +19,12 @@ def add_credit(request):
         else:
             pass
 
+    return render(request, "ClubManager/AddCredit.html")
+
+def success_top_up_club(request):
     club = Clubs.objects.get(club=request.user)
-    context = {
-        "credit": club.balance
-    }
-    return render(request, "ClubManager/AddCredit.html", context=context)
+
+    amount = int(request.POST.get('amount'))
+    club.credit += amount
+    club.save()
+    return redirect('student_homepage') 

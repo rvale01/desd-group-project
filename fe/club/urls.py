@@ -1,11 +1,15 @@
 # urls.py
 from django.urls import path
 from .views.general import homepage
+from .views.payment import add_credit_club, success_top_up_club
 from .views.showings import showings_by_date, showing_details
 from .views.tickets import purchase_tickets, club_ticket_confirmation, success_page
 from .views.bookings import booking_list
 urlpatterns = [
     path('', homepage, name = 'club_homepage'),
+    path('top-up/success/', success_top_up_club, name='success_top_up_club'),
+    path('top-up/form/', add_credit_club, name="add_credit_club")
+
 ]
 
 urlpatterns += [

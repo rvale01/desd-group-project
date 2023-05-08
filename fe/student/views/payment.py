@@ -17,12 +17,13 @@ def handle_student_successful_payment(request):
     # Ensure students_tickets is an integer or default to 0
     students_tickets = int(students_tickets) if students_tickets is not None else 0
 
+    # Get the student object associated with the user
+    student = StudentAccounts.objects.get(user=request.user)
+
     # Calculate the total cost of the booking
     total_cost = students_tickets * STUDENT_TICKET_PRICE
     total_cost = total_cost * (1-(student.discount/100))
 
-    # Get the student object associated with the user
-    student = StudentAccounts.objects.get(user=request.user)
     # Deduct the total cost from the student's balance and save the updated balance
     student.balance -= total_cost
     student.save()
