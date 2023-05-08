@@ -4,12 +4,14 @@ from ..models.general import Film, Showing
 from django.contrib.auth.decorators import user_passes_test
 from .general import restrict_to_cinema_managers
 
+# Render the form to add a new film (accessible only to cinema managers)
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def addFilmForm(request):
     form = FilmForm()
     if request.method == "GET":
         return render(request, 'Films/AddFilm.html', {'form': form})   
 
+# Handle the POST request to add a new film (accessible only to cinema managers)
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def addFilm(request):
     if request.method == "POST":
@@ -20,6 +22,7 @@ def addFilm(request):
             return redirect('filmList')
     return redirect('filmList')
 
+# Handle the request to delete a film (accessible only to cinema managers)
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def deleteFilm(request):
     if request.method == 'POST':
@@ -39,12 +42,14 @@ def deleteFilm(request):
     context = {'films': films}
     return render(request, 'Films/DeleteFilm.html', context)
 
+# List all films (accessible only to cinema managers)
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def filmList(request):
     films = Film.objects.all()
     context = {'films': films}
     return render(request, 'Films/ListFilms.html', context)
 
+# Handle the request to edit a film (accessible only to cinema managers)
 @user_passes_test(restrict_to_cinema_managers,  login_url='/auth/accounts/login/')
 def editFilm(request, film_id):
     film = Film.objects.get(film_id=film_id)
