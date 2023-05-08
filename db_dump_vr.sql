@@ -7,14 +7,6 @@ SET default_transaction_read_only = off;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 
---
--- Drop databases (except postgres and template1)
---
-
-DROP DATABASE IF EXISTS "group-14-db";
-
-
-
 
 --
 -- Drop roles
@@ -131,10 +123,6 @@ GRANT CONNECT ON DATABASE template1 TO PUBLIC;
 --
 
 --
--- Database "group-14-db" dump
---
-
---
 -- PostgreSQL database dump
 --
 
@@ -156,10 +144,6 @@ SET row_security = off;
 -- Name: group-14-db; Type: DATABASE; Schema: -; Owner: postgres
 --
 
-CREATE DATABASE "group-14-db" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
-
-
-ALTER DATABASE "group-14-db" OWNER TO postgres;
 
 \connect -reuse-previous=on "dbname='group-14-db'"
 
